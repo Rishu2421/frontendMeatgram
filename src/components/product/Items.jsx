@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
 
+import backendUrl from '../../config';
 function Items({ showAll, category,hideTitle }) {
   const [products, setProducts] = useState([]);
   const [categoryName,setCategoryName]=useState("");
@@ -9,16 +10,17 @@ function Items({ showAll, category,hideTitle }) {
 
   useEffect(() => {
     fetchProducts();
+    console.log(backendUrl)
   }, [category]);
 
   const fetchProducts = async () => {
     try {
       let response;
       if (category) {
-        response = await axios.get(`/api/categories/${category}`);
+        response = await axios.get(`${backendUrl}/api/categories/${category}`);
         setCategoryName(category)
       } else {
-        response = await axios.get('/api/products/allproducts');
+        response = await axios.get(`${backendUrl}/api/products/allproducts`);
       }
       setProducts(response.data);
     } catch (error) {

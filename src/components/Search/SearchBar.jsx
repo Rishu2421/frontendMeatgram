@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Search.css'
-
+import backendUrl from '../../config';
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -44,7 +44,7 @@ const SearchBar = () => {
   }, [itemsData, navigate, searchQuery]);
   const fetchItemsName = async () => {
     try {
-      const response = await fetch('/api/products/itemsName');
+      const response = await fetch(`${backendUrl}/api/products/itemsName`);
     
       const data = await response.json();
       setItemsData(data);

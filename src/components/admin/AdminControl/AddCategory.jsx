@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-
+import backendUrl from '../../../config';
 const AddCategory = () => {
   const [name, setName] = useState('');
   const [image, setImage] = useState(null);
@@ -31,7 +31,7 @@ const AddCategory = () => {
         
         },
       };
-      const response = await fetch('/api/admin/add-category', requestOptions);
+      const response = await fetch(`${backendUrl}/api/admin/add-category`, requestOptions);
 
       if (response.ok) {
         // Category added successfully

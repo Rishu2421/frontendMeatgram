@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import OrderContainer from './OrderContainer';
 import Cookies from 'js-cookie';
-
+import backendUrl from '../../config';
 const MyOrderPage = ({ isAdmin }) => {
   const userId=Cookies.get('userId');
 
@@ -13,7 +13,7 @@ const MyOrderPage = ({ isAdmin }) => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`/api/orders/${isAdmin ? 'admin' : `user/${userId}`}`);
+        const response = await axios.get(`${backendUrl}/api/orders/${isAdmin ? 'admin' : `user/${userId}`}`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);

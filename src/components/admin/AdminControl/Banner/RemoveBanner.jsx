@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Alert } from 'react-bootstrap';
-
+import backendUrl from '../../../../config';
 const RemoveBanner = ({ bannerId, onDelete }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -18,7 +18,7 @@ const RemoveBanner = ({ bannerId, onDelete }) => {
             'Content-Type': 'multipart/form-data',
           },
         }
-      await axios.delete(`/api/admin/removebanner/${bannerId}`,data);
+      await axios.delete(`${backendUrl}/api/admin/removebanner/${bannerId}`,data);
       onDelete(bannerId);
     } catch (error) {
       setError('Failed to remove banner.');

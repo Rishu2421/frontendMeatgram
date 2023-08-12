@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../Card.css';
 import Cookies from 'js-cookie';
-
+import backendUrl from '../../../config';
 const AddToCartButton = ({ product }) => {
   const { _id } = product;
   const [isAddingToCart, setIsAddingToCart] = useState(false);
@@ -14,7 +14,7 @@ const AddToCartButton = ({ product }) => {
       const userId = Cookies.get('userId');
       // const token = localStorage.getItem('token');
       // const userId = localStorage.getItem('userId');
-      const response = await fetch('/api/cart/addItem', {
+      const response = await fetch(`${backendUrl}/api/cart/addItem`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

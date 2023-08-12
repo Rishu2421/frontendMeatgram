@@ -6,6 +6,7 @@ import Sourcing from "./inner_component_product/Sourcing/Sourcing";
 import TheWay from "./inner_component_product/TheWay/TheWay";
 import Items from './product/Items'
 import "../styles/style.css";
+import backendUrl from "../config";
 
 function Product() {
   const location = useLocation();
@@ -25,7 +26,7 @@ function Product() {
   const fetchProduct = async (productId) => {
     try {
       // Make a request to the backend API to fetch the product details
-      const response = await fetch(`/api/products?ids=${productId}`);
+      const response = await fetch(`${backendUrl}/api/products?ids=${productId}`);
   
       const data = await response.json();
       // console.log("logging in product.jsx"+data)

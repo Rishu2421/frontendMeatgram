@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import backendUrl from '../../../../config';
 function AddBanner() {
   const [imageFile, setImageFile] = useState(null);
   const [altText, setAltText] = useState('');
@@ -16,7 +16,7 @@ function AddBanner() {
       formData.append('image', imageFile);
       formData.append('altText', altText);
 
-      const response = await axios.post('/api/admin/addbanner', formData, {
+      const response = await axios.post(`${backendUrl}/api/admin/addbanner`, formData, {
         headers: {
             Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

@@ -13,7 +13,7 @@ function ViewBanner() {
 
   const fetchBanners = async () => {
     try {
-      const response = await axios.get('/api/admin/getbanner');
+      const response = await axios.get(`${backendUrl}/api/admin/getbanner`);
       setBanners(response.data);
     } catch (error) {
       console.log('Failed to fetch banners:', error);

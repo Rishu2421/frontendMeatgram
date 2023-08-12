@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CheckoutPage from "./orders/CheckoutPage/CheckoutPage";
 import Cookies from 'js-cookie';
+import backendUrl from "../config";
 function Cart() {
   const [showCheckout, setShowCheckout] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -22,7 +23,7 @@ function Cart() {
     try {
       
       const token = Cookies.get('token');
-      const response = await fetch('/api/cart/', {
+      const response = await fetch(`${backendUrl}/api/cart/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +50,7 @@ function Cart() {
       const updatedCartItems = cartItems.filter(item => item.item._id !== itemId);
       setCartItems(updatedCartItems);
   
-      const response = await fetch(`/api/cart/${itemId}`, {
+      const response = await fetch(`${backendUrl}/api/cart/${itemId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

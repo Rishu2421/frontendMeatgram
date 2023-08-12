@@ -111,12 +111,9 @@ function NavBar() {
           <Route path="/paymentsuccess" element={<PaymentSuccess />} />
           <Route path="/admin/*" element={<AdminApp />} />
           <Route path="/user/myorder" element={<MyOrderPage isAdmin={false} userId={userId} />} />
-
           <Route path="/order/:orderId" element={<OrderStatusUpdate />}/>
-           {/* <Route path="/signup" element={<SignUp />} /> */}
           <Route path="/login" element={<LoginModal />} /> 
 
-          {/* Add your other routes here */}
         </Routes>
       </div>
   );

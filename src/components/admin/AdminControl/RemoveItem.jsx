@@ -1,9 +1,9 @@
 import React from 'react';
-
+import backendUrl from '../../../config';
 const RemoveItem = ({ itemId, onDelete }) => {
   const handleDelete = () => {
     // Send a request to the backend API to delete the item
-    fetch(`/api/admin/items/${itemId}`, {
+    fetch(`${backendUrl}/api/admin/items/${itemId}`, {
       method: 'DELETE',
     })
       .then(response => response.json())

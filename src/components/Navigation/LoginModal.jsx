@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { useLocation } from "react-router-dom";
 import Cookies from 'js-cookie';
+import backendUrl from "../../config";
 const LoginModal = ({ showLoginModal, handleLoginModalClose, handleLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +32,7 @@ const LoginModal = ({ showLoginModal, handleLoginModalClose, handleLoginSuccess 
   };
   const handleSignupWithEmail = () => {
     axios
-      .post("/api/user/register", { email, password })
+      .post(`${backendUrl}/api/user/register`, { email, password })
       .then((response) => {
         // If the login is successful, you can call handleLoginSuccess() here
         // and close the modal after successful login
@@ -106,7 +107,7 @@ const LoginModal = ({ showLoginModal, handleLoginModalClose, handleLoginSuccess 
   
 const handleLoginWithEmail = () => {
   axios
-    .post("/api/user/login", { email, password })
+    .post(`${backendUrl}/api/user/login`, { email, password })
     .then((response) => {
       // If the login is successful, you can call handleLoginSuccess() here
       // and close the modal after successful login
@@ -129,7 +130,7 @@ const handleLoginWithEmail = () => {
 };
   const handleLoginWithGoogle = () => {
     // Redirect the user to the Google login route on your backend
-    window.location.href = '/api/user/auth/google';
+    window.location.href = `${backendUrl}/api/user/auth/google`;
 
   };
   

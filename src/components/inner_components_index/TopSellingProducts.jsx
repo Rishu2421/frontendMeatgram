@@ -5,7 +5,7 @@ function TopSellingProducts() {
 
   useEffect(() => {
     // Fetch the top-selling products from the backend
-    fetch('/api/products/topselling')
+    fetch(`${backendUrl}/api/products/topselling`)
       .then((response) => response.json())
       .then((data) => {
         // Update the products state with the fetched data

@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import backendUrl from '../../config';
 const OrderStatusUpdate = ({ orderId }) => {
   const [status, setStatus] = useState('');
 
   const updateOrderStatus = async () => {
     try {
-      await axios.put(`/api/orders/admin/${orderId}`, { status });
+      await axios.put(`${backendUrl}/api/orders/admin/${orderId}`, { status });
       // Handle success
     } catch (error) {
       console.error('Error updating order status:', error);

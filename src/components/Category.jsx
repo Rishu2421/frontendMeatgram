@@ -6,7 +6,7 @@ import { ListImageWrap } from "./inner_components_category/ListImageWrap";
 import { ImageListWrap } from "./inner_components_category/ImageListWrap";
 import ChickenProductComponent from "./inner_components_category/ChickenProductComponent";
 import Items from './product/Items';
-
+import backendUrl from "../config";
 
 function Category({ categoryChoice }) {
 
@@ -21,7 +21,7 @@ function Category({ categoryChoice }) {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('/api/categories');
+      const response = await fetch(`${backendUrl}/api/categories`);
       const data = await response.json();
       setCategories(data);
     } catch (error) {

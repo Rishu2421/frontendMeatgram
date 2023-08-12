@@ -40,9 +40,9 @@ const CheckoutPage = ({ amount, products }) => {
 
     try {
       // Create the order on the backend and receive the order details
-      const { data: { order } } = await axios.post('/api/payment/checkout', { amount });
+      const { data: { order } } = await axios.post(`${backendUrl}/api/payment/checkout`, { amount });
 
-      const { data: { key } } = await axios.get(`${backendUrl}xapi/getkey`);
+      const { data: { key } } = await axios.get(`${backendUrl}/api/getkey`);
 
       const options = {
         key,
@@ -52,7 +52,7 @@ const CheckoutPage = ({ amount, products }) => {
         description: 'Buy Your Product',
         image: '/images/logo.png',
         order_id: order.id,
-        callback_url: '/api/payment/paymentverification',
+        callback_url: `${backendUrl}/api/payment/paymentverification`,
         handler: async (response) => {
           const result = await axios.post('/api/payment/paymentverification', response);
           if (result.status === 200) {
@@ -102,7 +102,7 @@ const CheckoutPage = ({ amount, products }) => {
         razorpay_signature,
       };
 
-      const response = await axios.post('/api/payment/savepayment', data);
+      const response = await axios.post(`${backendUrl}/api/payment/savepayment`, data);
       Cookies.set('token', response.data.token, { expires: 7 }); // Store the token in a cookie with a 7-day expiration
       Cookies.set('userId', response.data.userId, { expires: 7 }); // 
       const token = Cookies.get('token');
@@ -127,7 +127,7 @@ const CheckoutPage = ({ amount, products }) => {
         userId,
         amount,
       };
-      const response = await axios.post('/api/payment/cashondelivery', data);
+      const response = await axios.post(`${backendUrl}/api/payment/cashondelivery`, data);
       if (response.data.success) {
         setOrderPlaced(true);
         setOrderError(null);

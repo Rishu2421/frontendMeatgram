@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://backend.chersmeatgram.com/',
+      target: 'http://backendnew.chersmeatgram.com/',
       changeOrigin: true,
     })
   );

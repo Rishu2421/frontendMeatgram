@@ -11,7 +11,7 @@ const CategoryView = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('/api/categories');
+      const response = await fetch(`${backendUrl}/api/categories`);
       const data = await response.json();
       setCategories(data);
     } catch (error) {

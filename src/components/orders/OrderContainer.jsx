@@ -8,9 +8,7 @@ const OrderContainer = ({ orders, isAdmin }) => {
   const updateOrderStatus = async (orderId, status) => {
     setLoading(true);
     try {
-
-      
-      const response = await axios.put(`/api/orders/admin/${orderId}`, { status });
+      const response = await axios.put(`${backendUrl}/api/orders/admin/${orderId}`, { status });
       console.log(response.data); // Log the updated order details
       alert('Status updated successfully');
     } catch (error) {

@@ -13,7 +13,7 @@ function Banner() {
 
   const fetchImages = async () => {
     try {
-      const response = await axios.get('/api/admin/getbanner');
+      const response = await axios.get(`${backendUrl}/api/admin/getbanner`);
       setImages(response.data);
     } catch (error) {
       console.log('Failed to fetch banner images:', error);

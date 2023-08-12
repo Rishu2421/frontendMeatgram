@@ -9,7 +9,7 @@ function CategoryWrap({onCategoryChoice}) {
   useEffect((onCategoryChoice) => {
     // Fetch categories from backend API
     // Replace 'your-backend-api-endpoint' with your actual backend API endpoint
-    fetch('/api/categories')
+    fetch(`${backendUrl}/api/categories`)
       .then(response => response.json())
       .then(data => setCategories(data))
       .catch(error => console.error('Error fetching categories:', error));

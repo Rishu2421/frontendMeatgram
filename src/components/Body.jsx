@@ -8,6 +8,7 @@ import Meetgram from "./inner_components_index/Meetgram";
 import Meetgraminfo from "./inner_components_index/Meetgraminfo";
 import Testimonials from "./inner_components_index/Testimonials";
 import { useNavigate } from "react-router-dom";
+
 function Body({ categoryChoice }){
   const navigate=useNavigate();
   const handleCategoryChoice = (categoryName) => {

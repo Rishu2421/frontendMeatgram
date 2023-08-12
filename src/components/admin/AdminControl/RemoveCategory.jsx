@@ -1,10 +1,10 @@
 import React from 'react';
-
+import backendUrl from '../../../config';
 const RemoveCategory = ({ categoryId, onDelete }) => {
     const token = localStorage.getItem('adminToken');
   const handleDelete = () => {
     // Send a request to the backend API to delete the category
-    fetch(`/api/categories/${categoryId}`, {
+    fetch(`${backendUrl}/api/categories/${categoryId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`, // Add your admin authentication token here

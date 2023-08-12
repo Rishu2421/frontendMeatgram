@@ -24,7 +24,7 @@ function ProductWrap({ product,userId }) {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch("/api/cart/addItem", {
+      const response = await fetch(`${backendUrl}/api/cart/addItem`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
-
+import backendUrl from '../../../config';
 const AddProduct = () => {
 
   const [category,setCategory]=useState([]);
@@ -11,7 +11,7 @@ const AddProduct = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('/api/categories');
+      const response = await fetch(`${backendUrl}/api/categories`);
       const data = await response.json();
                                                                        
       setCategory(data);
@@ -63,7 +63,7 @@ const AddProduct = () => {
       formData.append('isTopSelling', product.isTopSelling);
       formData.append('isBoneless', product.isBoneless);
       // Send the product data to the backend API
-      const response = await axios.post('/api/admin/addproduct', formData, {
+      const response = await axios.post(`${backendUrl}/api/admin/addproduct`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

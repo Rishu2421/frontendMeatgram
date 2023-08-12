@@ -5,7 +5,7 @@ function BonelessCuts() {
 
   useEffect(() => {
     // Fetch the boneless items from the backend
-    fetch('/api/products/boneless')
+    fetch(`${backendUrl}/api/products/boneless`)
       .then((response) => response.json())
       .then((data) => {
         // Update the items state with the fetched data
