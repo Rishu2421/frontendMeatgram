@@ -58,6 +58,7 @@ function ProductWrap({ product,userId }) {
           <div className="col-md-6">
             <div className="images">
               <img  
+              className='img-fluid'
               src={`${backendUrl}${image}`}
               style={{ width: '40rem', height: '28rem', borderRadius: '15px' }}
               alt={name} />

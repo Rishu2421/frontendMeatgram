@@ -4,7 +4,7 @@ import SearchBar from "../Search/SearchBar";
 import LoginModal from "./LoginModal";
 import Cookies from 'js-cookie';
 
-function Navigation() {
+function Navigation({isToggleOn}) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -53,12 +53,18 @@ console.log(token)
     window.location.reload();
   };
 
+
+
   return (
-    <div className="first">
+    <>
+    
+
+    <div className={`first ${isToggleOn ? 'active' : ''}`}>
              
-      <div className="search">
-        <SearchBar />
-      </div>
+         <div className="search">
+            <SearchBar />
+        </div>
+      
       <div className="category">
         <a href="/category">
           <img src="/images/immediate.png" alt="immediate" />Category
@@ -69,6 +75,7 @@ console.log(token)
           <i className="fa fa-product-hunt" aria-hidden="true"></i>Product
         </a>
       </div>
+
       <div className="cart">
         <a href="/cart">
           <i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
@@ -125,7 +132,7 @@ console.log(token)
       />
       
     </div>
-    
+    </>
   );
 }
 

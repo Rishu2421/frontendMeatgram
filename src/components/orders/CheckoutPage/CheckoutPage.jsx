@@ -3,10 +3,8 @@ import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import backendUrl from '../../../config';
-const CheckoutPage = ({ amount, products }) => {
-  const [name, setName] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [address, setAddress] = useState('');
+const CheckoutPage = ({name,mobileNumber,address, amount, products,numberOfItem }) => {
+
   const  userId= Cookies.get('userId');
   const [paymentMethod, setPaymentMethod] = useState('cashOnDelivery');
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -54,7 +52,7 @@ const CheckoutPage = ({ amount, products }) => {
         order_id: order.id,
         callback_url: `${backendUrl}/api/payment/paymentverification`,
         handler: async (response) => {
-          const result = await axios.post('/api/payment/paymentverification', response);
+          const result = await axios.post(`${backendUrl}/api/payment/paymentverification`, response);
           if (result.status === 200) {
             savePaymentDetails(
               response.razorpay_order_id,
@@ -116,10 +114,10 @@ const CheckoutPage = ({ amount, products }) => {
   }
 
   const handleCashOnDelivery = async (e) => {
+
     e.preventDefault();
     try {
       // Create the order on the backend without Razorpay details
-      console.log("I am executing in handlecashon delivery cheout.jsx+")
       const data = {
         name,
         mobileNumber,
@@ -127,6 +125,7 @@ const CheckoutPage = ({ amount, products }) => {
         userId,
         amount,
       };
+      console.log(data)
       const response = await axios.post(`${backendUrl}/api/payment/cashondelivery`, data);
       if (response.data.success) {
         setOrderPlaced(true);
@@ -154,41 +153,46 @@ const CheckoutPage = ({ amount, products }) => {
   return (
     <Container>
       <Row>
-        <Col md={6}>
+        <Col md={12}>
           <h2>Checkout</h2>
           <Form onSubmit={paymentMethod === 'razorpay' ? handleFormSubmitRazorpay : handleCashOnDelivery}>
-            <Form.Group controlId="formName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <section class="addline">
+    <div class="container" id="checkout_content">
+        <div class="address">
+           <h5 id="total_items">Total item - {numberOfItem}</h5>
+           <p>address:</p>
+           <h3 id="delivery_address">{address}</h3>
+           <button onclick="navigateToDashboard();">Change</button><br/>
+           {/* <!-- <h3>The product will be delivered by </h3> -->
+           <!-- <p>11-Nov-2022</p> --> */}
 
-            <Form.Group controlId="formEmail">
-              <Form.Label>Mobile Number</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter your contact number"
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
-                required
-              />
-            </Form.Group>
+        </div>
+        <div class="bill">
+            <h6 class="el">BILL DETAILS</h6>
+            <div class="left-right">
+                <div class="left">
+               <h5 id="total_items">Name </h5>
 
-            <Form.Group controlId="formAddress">
-              <Form.Label>Address</Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Enter your address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-              />
-            </Form.Group>
+                    <p>subtotal</p>
+                    <p>Delivery Charge</p>
+                    <p class="all">Discount</p>
+                   
+                    <h6>total</h6>
+                </div>
+
+                <div class="right">
+                    <p id="subtotal">{name}</p>
+                    <p id="subtotal">{amount}</p>
+
+                    <p id="delivery_charge">40.00</p>
+                    <p class="all" id="discount">0.00</p>
+                    <h6 id="total">{amount+40}</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-bill-wrap">
+            <div class="first">
 
             <div className="payment-method-box">
               <input
@@ -196,10 +200,11 @@ const CheckoutPage = ({ amount, products }) => {
                 id="cashOnDelivery"
                 name="paymentMethod"
                 value="cashOnDelivery"
+               
                 checked={paymentMethod === 'cashOnDelivery'}
                 onChange={() => handlePaymentMethodChange('cashOnDelivery')}
               />
-              <label htmlFor="cashOnDelivery">Cash On Delivery</label>
+              <label htmlFor="cashOnDelivery" className='me-6'>Cash On Delivery</label>
 
               <input
                 type="radio"
@@ -209,7 +214,8 @@ const CheckoutPage = ({ amount, products }) => {
                 checked={paymentMethod === 'razorpay'}
                 onChange={() => handlePaymentMethodChange('razorpay')}
               />
-              <label htmlFor="razorpay">Pay Now with Razorpay</label>
+                
+              <label htmlFor="razorpay" className='me-6'>Pay Now with Razorpay</label>
             </div>
 
             {paymentMethod === 'razorpay' && (
@@ -232,19 +238,23 @@ const CheckoutPage = ({ amount, products }) => {
 
             {orderError && (
               <Alert variant="danger">Error: {orderError}</Alert>
-            )}
+            )} 
+            </div>
+        
+        </div>
+       
+
+    </div>
+</section>
+          
           </Form>
         </Col>
 
-        <Col md={6}>
-          <h2>Payment Summary</h2>
-          {/* Display the amount to be paid */}
-          <h3>Amount to be Paid: {amount}</h3>
-          {/* Additional payment summary or details */}
-        </Col>
+      
       </Row>
     </Container>
   );
 };
 
 export default CheckoutPage;
+

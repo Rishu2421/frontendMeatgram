@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useState,useRef,useEffect } from "react";
 import { Route, Routes,useNavigate } from "react-router-dom";
 import './NavBar.css'
 import Body from "../Body";
@@ -14,9 +14,36 @@ import MyOrderPage from "../orders/MyOrderPage";
 import OrderStatusUpdate from "../orders/OrderStatusUpdate";
 import LoginModal from "../Navigation/LoginModal";
 import Cookies from 'js-cookie';
+import SearchBar from "../Search/SearchBar";
 function NavBar() {
   const [categoryName, setCategoryName] = useState("");
   const navigate = useNavigate();
+  const [isToggleOn, setIsToggleOn] = useState(false); // Toggle state
+
+  useEffect(() => {
+    console.log("useEffect triggered");
+    const toggle = document.getElementById('toggle');
+    const menu = document.getElementById('menu');
+  
+    
+    if (toggle && menu) {
+      console.log("Adding event listener");
+      toggle.addEventListener('click', () => {
+        
+        toggle.classList.toggle('on');
+      });
+    }
+  
+    return () => {
+      if (toggle && menu) {
+        console.log("Removing event listener");
+        toggle.removeEventListener('click', () => {
+          toggle.classList.toggle('on');
+        });
+      }
+    };
+  }, []);
+  
 
   // const userId = localStorage.getItem('userId');
   const userId = Cookies.get('userId');
@@ -62,8 +89,13 @@ function NavBar() {
 
   
 
-
+const handleToggleClick = () => {
+    setIsToggleOn(!isToggleOn);
+  };
   return (
+
+                
+          
   
       <div>
         <section className="header">
@@ -75,6 +107,7 @@ function NavBar() {
                     <img src="/images/logo.png" alt="logo" />
                   </a>
                 </div>
+               
                 <div className="title d-inline" onClick={handleCityClick}>
                
                 <select
@@ -89,12 +122,19 @@ function NavBar() {
                     </option>
                   ))}
                 </select>
-              </div>
+                 </div>
+             
 
               </div>
-              <div className="right">
-                  <Navigation />
+    
+              <div className={`toggle ${isToggleOn ? 'on' : ''}`} id="toggle" onClick={handleToggleClick}>
+                  <span></span>
                </div>
+              <div className={`right menu ${isToggleOn ? 'on' : ''}`} id="menu">
+                  <Navigation isToggleOn={isToggleOn} />
+               </div>
+               
+              
             </div>
           </div>
         </section>

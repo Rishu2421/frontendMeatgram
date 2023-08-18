@@ -9,7 +9,7 @@ const ViewProducts = () => {
   useEffect(() => {
     // Fetch products from backend API
     // Replace 'your-backend-api-endpoint' with your actual backend API endpoint
-    fetch(`/api/products/allproducts`)
+    fetch(`${backendUrl}/api/products/allproducts`)
       .then(response => response.json())
       .then(data => setProducts(data))
       .catch(error => console.error('Error fetching products:', error));
