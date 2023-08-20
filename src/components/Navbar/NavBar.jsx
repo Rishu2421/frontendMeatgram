@@ -1,4 +1,4 @@
-import React, { useState,useRef,useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { Route, Routes,useNavigate } from "react-router-dom";
 import './NavBar.css'
 import Body from "../Body";
@@ -24,13 +24,14 @@ function NavBar() {
     console.log("useEffect triggered");
     const toggle = document.getElementById('toggle');
     const menu = document.getElementById('menu');
-  
+    const backdrop = document.getElementById('backdrop');
     
     if (toggle && menu) {
       console.log("Adding event listener");
       toggle.addEventListener('click', () => {
         
         toggle.classList.toggle('on');
+        backdrop.classList.toggle('active');
       });
     }
   
@@ -47,46 +48,10 @@ function NavBar() {
 
   // const userId = localStorage.getItem('userId');
   const userId = Cookies.get('userId');
-  const [selectedCity, setSelectedCity] = useState("Bhopal");
   const handleCategoryChoice = (category) => {
     setCategoryName(category);
     navigate(`/category/${categoryName}`);
   };
-
-  const cities = [
-    "Arera Colony",
-    "Bairagarh",
-    "Berasia Road",
-    "Bittan Market",
-    "GovindPura",
-    "Habibganj",
-    "Hamidia Road",
-    "Hoshangabad Road",
-    "Indrapuri",
-    "Jahangirabad",
-    "Koh-e-Pizza",
-    "Kolar Road",
-    "Malviya Nagar",
-    "Marvari Road",
-    "MP Nagar",
-    "Peergate",
-    "Raisen Road",
-    "Shahpura",
-    "Shivaji Nagar",
-    "Sultania Road"
-  ];
-
-  const selectRef = useRef(null);
-
-  const handleCityClick = () => {
-    // Trigger click event on the hidden select element
-    selectRef.current.click();
-  };
-
-  const handleCityChange = (city) => {
-    setSelectedCity(city);
-  };
-
   
 
 const handleToggleClick = () => {
@@ -102,37 +67,21 @@ const handleToggleClick = () => {
           <div className="container">
             <div className="header-wrap">
               <div className="left">
-                <div className="logo">
+                <div className="logo" >
                   <a href="/">
                     <img src="/images/logo.png" alt="logo" />
                   </a>
                 </div>
-               
-                <div className="title d-inline" onClick={handleCityClick}>
-               
-                <select
-                  ref={selectRef}
-                  className="hidden-select"
-                  onChange={(e) => handleCityChange(e.target.value)}
-                  value={selectedCity}
-                >
-                  {cities.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                </select>
-                 </div>
-             
-
               </div>
     
+     
               <div className={`toggle ${isToggleOn ? 'on' : ''}`} id="toggle" onClick={handleToggleClick}>
                   <span></span>
                </div>
-              <div className={`right menu ${isToggleOn ? 'on' : ''}`} id="menu">
+              <div className={`right menu ${isToggleOn ? 'on d-flex align-items-center justify-content-center' : ''}`} id="menu">
                   <Navigation isToggleOn={isToggleOn} />
                </div>
+               <div className={`backdrop ${isToggleOn ? 'active' : ''}`} id="backdrop"></div>
                
               
             </div>

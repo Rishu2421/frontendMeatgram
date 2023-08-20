@@ -36,8 +36,7 @@ const LoginModal = ({ showLoginModal, handleLoginModalClose, handleLoginSuccess 
       .then((response) => {
         // If the login is successful, you can call handleLoginSuccess() here
         // and close the modal after successful login
-        console.log(response.data);
-  
+       
         if (response.status === 200) {
           const token = response.data.token;
           const userId = response.data.userId;

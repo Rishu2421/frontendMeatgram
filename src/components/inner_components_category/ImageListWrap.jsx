@@ -17,7 +17,7 @@ export function ImageListWrap({categories,onCategoryChoice}) {
         <div className="list-img">
           <div className="text-img">
             <a href="/product/allproducts">
-              <img src="images/Rectangle 18 (2).png" alt="All" />
+              <img src="images/Rectangle 18 (2).png" style={{ width: "85px", height: "85px" }} alt="All" />
               All
             </a>
           </div>

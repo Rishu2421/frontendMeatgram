@@ -43,7 +43,7 @@ function Category({ categoryChoice }) {
       <ListImageWrap />
       <ImageListWrap categories={categories} onCategoryChoice={handleCategoryChoice} />
       
-      <ButtonWrap />
+      {/* <ButtonWrap /> */}
 
       <ChickenProductComponent />
 

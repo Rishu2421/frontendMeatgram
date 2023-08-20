@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import backendUrl from "../../config";
 import CheckoutPage from "../orders/CheckoutPage/CheckoutPage";
 import {  Form } from 'react-bootstrap';
+import AreaSelection from "../orders/AreaSelection/AreaSelection";
 
 function CartBody(){
     const [showCheckout, setShowCheckout] = useState(false);
@@ -10,8 +11,7 @@ function CartBody(){
     const [name, setName] = useState('');
     const [mobileNumber, setMobileNumber] = useState('');
     const [address, setAddress] = useState('');
-
-
+    const [selectedCityStore, setSelectedCityStore] = useState("");
 
 
     useEffect(() => {
@@ -84,7 +84,7 @@ function CartBody(){
 return (
     <>
 {showCheckout ? (
-      <CheckoutPage name={name} mobileNumber={mobileNumber} address={address} amount={calculateTotalValue()} numberOfItem={calculateTotalItem()} products={cartItems}/>
+      <CheckoutPage name={name} mobileNumber={mobileNumber} address={address} amount={calculateTotalValue()} storeLocation={selectedCityStore} numberOfItem={calculateTotalItem()} products={cartItems}/>
     ) : (
     <div>
      
@@ -120,6 +120,8 @@ return (
                   <td>{item.quantity}</td>
                   <td>{item.item.price}</td>
                   <td>{item.quantity * item.item.price}</td>
+
+
                   <td>
                     <button className="btn btn-danger btn-responsive" onClick={() => removeItemFromCart(item.item._id)}>Remove</button>
                   </td>
@@ -139,55 +141,60 @@ return (
         </div>
     </div>
 
+    <div className="col-md-4 mt-3">
+  <div className="card p-4">
+    <h2 className="mb-4">Enter Your Details</h2>
+    <Form.Group controlId="formName" className="mt-3">
+      <Form.Label>Name: </Form.Label>
+      <Form.Control
+        type="text"
+        placeholder="Enter your name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+    </Form.Group>
 
-    <div className="col-md-4">
-        <div className="card p-4">
-            <h2 className="mb-4">Enter Your Details</h2>
-            <Form.Group controlId="formName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </Form.Group>
+    <Form.Group controlId="formEmail" className="mt-3">
+      <Form.Label>Mobile Number: </Form.Label>
+      <Form.Control
+        type="number"
+        placeholder="Enter your contact number"
+        value={mobileNumber}
+        onChange={(e) => setMobileNumber(e.target.value)}
+        required
+      />
+    </Form.Group>
 
-            <Form.Group controlId="formEmail">
-              <Form.Label>Mobile Number</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter your contact number"
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
-                required
-              />
-            </Form.Group>
+    <Form.Group controlId="formAddress" className="mt-3">
+      <Form.Label>Address: </Form.Label>
+      <Form.Control
+        as="textarea"
+        placeholder="Enter your address"
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+        required
+        rows={4}
+      />
+    </Form.Group>
 
-            <Form.Group controlId="formAddress">
-              <Form.Label>Address</Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Enter your address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-              />
-            </Form.Group>
+    <Form.Group controlId="storeLocation" className="mt-3">
+      <Form.Label className="me-4">Select Store:</Form.Label>
+      <AreaSelection setSelectedCityStore={setSelectedCityStore} />
+    </Form.Group>
 
-            {/* <div className="mb-3">
-                <input type="text" className="form-control" placeholder="Full Name"  required/>
-            </div>
-            <div className="mb-3">
-                <input type="text" className="form-control" placeholder="Mobile Number" required/>
-            </div>
-            <div className="mb-3">
-                <textarea className="form-control" placeholder="Address" required></textarea>
-            </div> */}
-            <button className="btn btn-primary" onClick={() => setShowCheckout(true)}>Proceed to Checkout</button>
-        </div>
+    <div className="d-grid gap-2 mt-3">
+      <button
+        className="btn btn-primary btn-lg"
+        onClick={() => setShowCheckout(true)}
+      >
+        Proceed to Checkout
+      </button>
     </div>
+  </div>
+</div>
+
+    
 </div>
 </div>
 )}
@@ -203,6 +210,59 @@ return (
 export default CartBody;
 
 
+// <div className="col-md-4">
+//         <div className="card p-4">
+//             <h2 className="mb-4">Enter Your Details</h2>
+//             <Form.Group controlId="formName">
+//               <Form.Label>Name</Form.Label>
+//               <Form.Control
+//                 type="text"
+//                 placeholder="Enter your name"
+//                 value={name}
+//                 onChange={(e) => setName(e.target.value)}
+//                 required
+//               />
+//             </Form.Group>
+
+//             <Form.Group controlId="formEmail">
+//               <Form.Label>Mobile Number</Form.Label>
+//               <Form.Control
+//                 type="number"
+//                 placeholder="Enter your contact number"
+//                 value={mobileNumber}
+//                 onChange={(e) => setMobileNumber(e.target.value)}
+//                 required
+//               />
+//             </Form.Group>
+
+//             <Form.Group controlId="formAddress">
+//               <Form.Label>Address</Form.Label>
+//               <Form.Control
+//                 as="textarea"
+//                 placeholder="Enter your address"
+//                 value={address}
+//                 onChange={(e) => setAddress(e.target.value)}
+//                 required
+//               />
+//             </Form.Group>
+
+//             <Form.Group controlId="storeLocation">
+//               <Form.Label>Select Store : </Form.Label>
+              
+//             <AreaSelection />
+//             </Form.Group>
+//             {/* <div className="mb-3">
+//                 <input type="text" className="form-control" placeholder="Full Name"  required/>
+//             </div>
+//             <div className="mb-3">
+//                 <input type="text" className="form-control" placeholder="Mobile Number" required/>
+//             </div>
+//             <div className="mb-3">
+//                 <textarea className="form-control" placeholder="Address" required></textarea>
+//             </div> */}
+//             <button className="btn btn-primary" onClick={() => setShowCheckout(true)}>Proceed to Checkout</button>
+//         </div>
+//     </div>
 
 // thhis line is printed in cartapp place 
     // {/* <div>

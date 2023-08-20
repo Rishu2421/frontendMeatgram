@@ -1,0 +1,40 @@
+/* Custom styles for the next button */
+.custom-indicator {
+    background-color: #ddd;
+    border: none;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  @media (max-width: 767px) {
+    
+    .banner {
+
+        height: 30vh;
+    }
+
+    .banner .carousel{
+        height: 30vh;
+    }
+    .banner .carousel .carousel-slide .item{
+        height: 30vh;
+    }
+  }
+  .custom-indicator.selected {
+    background-color: #333;
+  }
+  
+  /* Additional styles for the next button icon can be added here */
+  .carousel .control-prev::before {
+    content: '\2190'; /* Unicode character for left arrow */
+    font-size: 24px;
+  }
+  
+  /* Style for the next button */
+  .carousel .control-next::before {
+    content: '\2192'; /* Unicode character for right arrow */
+    font-size: 24px;
+  }

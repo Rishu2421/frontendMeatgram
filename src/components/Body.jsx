@@ -1,5 +1,5 @@
 import React from "react";
-import Banner from "./inner_components_index/Banner";
+import Banner from "./inner_components_index/Banner/Banner";
 import CategoryWrap from "./inner_components_index/CategoryWrap/CategoryWrap";
 import TopSellingProducts from "./inner_components_index/TopSellingProducts";
 import BonelessCuts from "./inner_components_index/BonelessCuts";

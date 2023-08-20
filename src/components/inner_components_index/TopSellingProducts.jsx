@@ -25,17 +25,24 @@ function TopSellingProducts() {
         <div className="row">
           {products.map((product, index) => (
             <div className="col-md-3" key={index}>
-              <div className="image">
-                <img
-                  src={`${backendUrl}${product.image}`}
-                  alt={`Product ${index + 1}`}
-                  style={{ width: "12rem", borderRadius: "20px" ,height:"12rem" }}
-                />
-              </div>
-              <div className="text">
-                <h3>{product.name}</h3>
-              </div>
-            </div>
+  <div
+    className="image"
+    style={{
+      backgroundImage: `url(${backendUrl}${product.image})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      borderRadius: '20px',
+      height:'5rem',
+      // width: '5rem', // Set width to fill the column
+      paddingTop: '100%',
+    }}
+  ></div>
+  <div className="text mt-auto">
+    <h3>{product.name}</h3>
+  </div>
+</div>
+
+
           ))}
         </div>
       </div>

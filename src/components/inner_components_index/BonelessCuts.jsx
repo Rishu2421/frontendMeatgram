@@ -25,13 +25,17 @@ function BonelessCuts() {
         <div className="row">
           {items.map((item, index) => (
             <div className="col-md-4" key={index}>
-              <div className="image">
-                <img 
-                src={`${backendUrl}${item.image}`} 
-                alt={`Boneless ${index + 1}`} 
-                style={{ width: "22rem",height:"18rem", borderRadius: "15px" }}
-                />
-              </div>
+            <div
+        className="image img img-fluid"
+        style={{
+          // width: '19rem',
+          height: '18rem',
+          borderRadius: '15px',
+          backgroundImage: `url(${backendUrl}${item.image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      ></div>
               <div className="text">
                 <h3>{item.name}</h3>
               </div>
@@ -44,3 +48,14 @@ function BonelessCuts() {
 }
 
 export default BonelessCuts;
+
+
+
+// only this much changed for img part 
+{/* <div className="image">
+<img 
+src={`${backendUrl}${item.image}`} 
+alt={`Boneless ${index + 1}`} 
+style={{ width: "22rem",height:"18rem", borderRadius: "15px" }}
+/>
+</div> */}

@@ -66,23 +66,26 @@ console.log(token)
         </div>
       
       <div className="category">
-        <a href="/category">
-          <img src="/images/immediate.png" alt="immediate" />Category
+        <a href="/category" className="d-flex align-items-center justify-content-center">
+          <img src="/images/immediate.png" className="me-2" alt="immediate" />
+          <span>Category</span>
         </a>
       </div>
       <div className="product">
-        <a href="/product/allproducts">
-          <i className="fa fa-product-hunt" aria-hidden="true"></i>Product
+        <a href="/product/allproducts" className="d-flex align-items-center justify-content-center">
+          <i className="fa fa-product-hunt" aria-hidden="true"></i>
+          <span>Product</span>
         </a>
       </div>
 
       <div className="cart">
-        <a href="/cart">
-          <i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
+        <a href="/cart" className="d-flex align-items-center justify-content-center" >
+          <i className="fa fa-shopping-cart " aria-hidden="true"></i>
+          <span>Cart</span>
         </a>
       </div>
       
-      {isAuthenticated?<div className="cart">
+      {isAuthenticated?<div className="cart mt-2">
         <div className="dropdown">
           <a
             className="btn btn-secondary dropdown-toggle"
