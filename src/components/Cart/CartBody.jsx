@@ -1,214 +1,230 @@
-import React,{useState,useEffect} from "react";
-import Cookies from 'js-cookie';
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import backendUrl from "../../config";
 import CheckoutPage from "../orders/CheckoutPage/CheckoutPage";
-import {  Form } from 'react-bootstrap';
+import { Form } from "react-bootstrap";
 import AreaSelection from "../orders/AreaSelection/AreaSelection";
 
-function CartBody(){
-    const [showCheckout, setShowCheckout] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
-    const [name, setName] = useState('');
-    const [mobileNumber, setMobileNumber] = useState('');
-    const [address, setAddress] = useState('');
-    const [selectedCityStore, setSelectedCityStore] = useState("");
+function CartBody() {
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [name, setName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [selectedCityStore, setSelectedCityStore] = useState("");
 
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
+  const fetchCartItems = async () => {
+    try {
+      const token = Cookies.get("token");
+      const response = await fetch(`${backendUrl}/api/cart/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    useEffect(() => {
-        fetchCartItems();
-      }, []);
-    const fetchCartItems = async () => {
-        try {
-          
-          const token = Cookies.get('token');
-          const response = await fetch(`${backendUrl}/api/cart/`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            
-            setCartItems(data.cartItems);
-    
-          } else {
-            console.log('Failed to fetch cart items');
-          }
-        } catch (error) {
-          console.log('Error fetching cart items:', error);
-        }
-      };
+      if (response.ok) {
+        const data = await response.json();
 
-      const removeItemFromCart = async (itemId) => {
-        try {
-          // const token = localStorage.getItem('token');
-          // const userId = localStorage.getItem('userId');
-          const token = Cookies.get('token');
-          const userId = Cookies.get('userId');
-          // Remove the item from the cartItems array on the client-side
-          const updatedCartItems = cartItems.filter(item => item.item._id !== itemId);
-          setCartItems(updatedCartItems);
-      
-          const response = await fetch(`${backendUrl}/api/cart/${itemId}`, {
-            method: 'DELETE',
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json', // Add the Content-Type header
-            },
-            body: JSON.stringify({ userId }), // Send the userId in the request body
-          });
-      
-          if (response.ok) {
-            // Item removed successfully, no need to fetch updated cart items
-            console.log('Item removed from cart successfully');
-            // <Alert variant="Success"> </Alert>
-          } else {
-            // Revert back the cart items if there is an error
-            setCartItems(cartItems);
-            console.log('Failed to remove item from cart');
-          }
-        } catch (error) {
-          console.log('Error removing item from cart:', error);
-        }
-      };
-
-      const calculateTotalValue = () => {
-        
-        return cartItems.reduce((total, item) => total + item.quantity * item.item.price, 0);
-     };
-
-   const calculateTotalItem=()=>{
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+        setCartItems(data.cartItems);
+      } else {
+        console.log("Failed to fetch cart items");
+      }
+    } catch (error) {
+      console.log("Error fetching cart items:", error);
     }
-return (
+  };
+
+  const removeItemFromCart = async (itemId) => {
+    try {
+      // const token = localStorage.getItem('token');
+      // const userId = localStorage.getItem('userId');
+      const token = Cookies.get("token");
+      const userId = Cookies.get("userId");
+      // Remove the item from the cartItems array on the client-side
+      const updatedCartItems = cartItems.filter(
+        (item) => item.item._id !== itemId
+      );
+      setCartItems(updatedCartItems);
+
+      const response = await fetch(`${backendUrl}/api/cart/${itemId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json", // Add the Content-Type header
+        },
+        body: JSON.stringify({ userId }), // Send the userId in the request body
+      });
+
+      if (response.ok) {
+        // Item removed successfully, no need to fetch updated cart items
+        console.log("Item removed from cart successfully");
+        // <Alert variant="Success"> </Alert>
+      } else {
+        // Revert back the cart items if there is an error
+        setCartItems(cartItems);
+        console.log("Failed to remove item from cart");
+      }
+    } catch (error) {
+      console.log("Error removing item from cart:", error);
+    }
+  };
+
+  const calculateTotalValue = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.quantity * item.item.price,
+      0
+    );
+  };
+
+  const calculateTotalItem = () => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+  return (
     <>
-{showCheckout ? (
-      <CheckoutPage name={name} mobileNumber={mobileNumber} address={address} amount={calculateTotalValue()} storeLocation={selectedCityStore} numberOfItem={calculateTotalItem()} products={cartItems}/>
-    ) : (
-    <div>
-     
-    
-
-
-    {cartItems.length === 0 ? (
-        <div className="text-center">
-                                <p>Your cart is feeling a bit empty...</p>
-                                <img className="img img-fluid" src="./images/empty_cart_.png" alt="Illustration" />
-                            </div>
+      {showCheckout ? (
+        <CheckoutPage
+          name={name}
+          mobileNumber={mobileNumber}
+          address={address}
+          amount={calculateTotalValue()}
+          storeLocation={selectedCityStore}
+          numberOfItem={calculateTotalItem()}
+          products={cartItems}
+        />
       ) : (
-    <div className="container mt-5">
-<div className="row">
-    <div className="col-md-8">
-        <div className="card p-4">
-            <h2 className="mb-4">Your Cart</h2>
-            <div className="table-responsive">
-                <table className="table table-striped table-bordered table-hover">
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Subtotal</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems.map((item,index) => (
-                <tr key={`${item.item._id}-${index}`}>
-                  <td>{item.item.name}</td>
-                  <td>{item.quantity}</td>
-                  <td>{item.item.price}</td>
-                  <td>{item.quantity * item.item.price}</td>
+        <div>
+          {cartItems.length === 0 ? (
+            <div className="text-center">
+              <p>Your cart is feeling a bit empty...</p>
+              <img
+                className="img img-fluid"
+                src="./images/empty_cart_.png"
+                alt="Illustration"
+              />
+            </div>
+          ) : (
+            <div className="container mt-5">
+              <div className="row">
+                <div className="col-md-8">
+                  <div className="card p-4">
+                    <h2 className="mb-4">Your Cart</h2>
+                    <div className="table-responsive">
+                      <table className="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {cartItems.map((item, index) => (
+                            <tr key={`${item.item._id}-${index}`}>
+                              <td>
+                                {item.item.name
+                                  .split(" ")
+                                  .slice(0, 3)
+                                  .join(" ")}
+                                {item.item.name.split(" ").length > 3
+                                  ? " ..."
+                                  : ""}
+                              </td>
+                              <td>{item.quantity}</td>
+                              <td>{item.item.price}</td>
+                              <td>{item.quantity * item.item.price}</td>
 
+                              <td>
+                                <button
+                                  className="btn btn-danger btn-responsive"
+                                  onClick={() =>
+                                    removeItemFromCart(item.item._id)
+                                  }
+                                >
+                                  Remove
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                          <tr>
+                            <td colSpan="3"></td>
+                            <th>Total:</th>
+                            <td>Rs.{calculateTotalValue()}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
 
-                  <td>
-                    <button className="btn btn-danger btn-responsive" onClick={() => removeItemFromCart(item.item._id)}>Remove</button>
-                  </td>
-                </tr>
-                
-              ))}
-              <tr>
-              <td colSpan="3"></td>
-              <th>Total:</th>
-              <td>Rs.{calculateTotalValue()}</td>
-              </tr>
-            </tbody>
-                </table>
-          </div>
+                <div className="col-md-4 mt-3">
+                  <div className="card p-4">
+                    <h2 className="mb-4">Enter Your Details</h2>
+                    <Form.Group controlId="formName" className="mt-3">
+                      <Form.Label>Name: </Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter your name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                      />
+                    </Form.Group>
 
-        
+                    <Form.Group controlId="formEmail" className="mt-3">
+                      <Form.Label>Mobile Number: </Form.Label>
+                      <Form.Control
+                        type="number"
+                        placeholder="Enter your contact number"
+                        value={mobileNumber}
+                        onChange={(e) => setMobileNumber(e.target.value)}
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="formAddress" className="mt-3">
+                      <Form.Label>Address: </Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        placeholder="Enter your address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        required
+                        rows={4}
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="storeLocation" className="mt-3">
+                      <Form.Label className="me-4">Select Store:</Form.Label>
+                      <AreaSelection
+                        setSelectedCityStore={setSelectedCityStore}
+                      />
+                    </Form.Group>
+
+                    <div className="d-grid gap-2 mt-3">
+                      <button
+                        className="btn btn-primary btn-lg"
+                        onClick={() => setShowCheckout(true)}
+                      >
+                        Proceed to Checkout
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-    </div>
-
-    <div className="col-md-4 mt-3">
-  <div className="card p-4">
-    <h2 className="mb-4">Enter Your Details</h2>
-    <Form.Group controlId="formName" className="mt-3">
-      <Form.Label>Name: </Form.Label>
-      <Form.Control
-        type="text"
-        placeholder="Enter your name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-    </Form.Group>
-
-    <Form.Group controlId="formEmail" className="mt-3">
-      <Form.Label>Mobile Number: </Form.Label>
-      <Form.Control
-        type="number"
-        placeholder="Enter your contact number"
-        value={mobileNumber}
-        onChange={(e) => setMobileNumber(e.target.value)}
-        required
-      />
-    </Form.Group>
-
-    <Form.Group controlId="formAddress" className="mt-3">
-      <Form.Label>Address: </Form.Label>
-      <Form.Control
-        as="textarea"
-        placeholder="Enter your address"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-        required
-        rows={4}
-      />
-    </Form.Group>
-
-    <Form.Group controlId="storeLocation" className="mt-3">
-      <Form.Label className="me-4">Select Store:</Form.Label>
-      <AreaSelection setSelectedCityStore={setSelectedCityStore} />
-    </Form.Group>
-
-    <div className="d-grid gap-2 mt-3">
-      <button
-        className="btn btn-primary btn-lg"
-        onClick={() => setShowCheckout(true)}
-      >
-        Proceed to Checkout
-      </button>
-    </div>
-  </div>
-</div>
-
-    
-</div>
-</div>
-)}
-
-
-</div>
-    
-     )}
-</>
-);
+      )}
+    </>
+  );
 }
 
 export default CartBody;
-
 
 // <div className="col-md-4">
 //         <div className="card p-4">
@@ -248,7 +264,7 @@ export default CartBody;
 
 //             <Form.Group controlId="storeLocation">
 //               <Form.Label>Select Store : </Form.Label>
-              
+
 //             <AreaSelection />
 //             </Form.Group>
 //             {/* <div className="mb-3">
@@ -264,47 +280,45 @@ export default CartBody;
 //         </div>
 //     </div>
 
-// thhis line is printed in cartapp place 
-    // {/* <div>
-      // <h1>Cart</h1>
-      // {cartItems.length === 0 ? (
-        // <p>Your cart is empty.</p>
-    //   ) : (
-    //     <div>
-        //   <table className="table">
-        //     <thead>
-        //       <tr>
-        //         <th>Product</th>
-        //         <th>Quantity</th>
-        //         <th>Price</th>
-        //         <th>Subtotal</th>
-        //         <th>Action</th>
-        //       </tr>
-        //     </thead>
-        //     <tbody>
-        //       {cartItems.map((item,index) => (
-        //         <tr key={`${item.item._id}-${index}`}>
-        //           <td>{item.item.name}</td>
-        //           <td>{item.item.quantity}</td>
-        //           <td>{item.item.price}</td>
-        //           <td>{item.quantity * item.item.price}</td>
-        //           <td>
-        //             <button onClick={() => removeItemFromCart(item.item._id)}>Remove</button>
-        //           </td>
-        //         </tr>
-        //       ))}
-        //     </tbody>
-        //   </table>
-    //       <p>Total: {calculateTotalValue()}</p>
-        //   <button className="btn btn-primary" onClick={() => setShowCheckout(true)}>
-        //   Buy Now
-        // </button>
-         
-    //     </div>
-    //   )}
-    // </div> 
+// thhis line is printed in cartapp place
+// {/* <div>
+// <h1>Cart</h1>
+// {cartItems.length === 0 ? (
+// <p>Your cart is empty.</p>
+//   ) : (
+//     <div>
+//   <table className="table">
+//     <thead>
+//       <tr>
+//         <th>Product</th>
+//         <th>Quantity</th>
+//         <th>Price</th>
+//         <th>Subtotal</th>
+//         <th>Action</th>
+//       </tr>
+//     </thead>
+//     <tbody>
+//       {cartItems.map((item,index) => (
+//         <tr key={`${item.item._id}-${index}`}>
+//           <td>{item.item.name}</td>
+//           <td>{item.item.quantity}</td>
+//           <td>{item.item.price}</td>
+//           <td>{item.quantity * item.item.price}</td>
+//           <td>
+//             <button onClick={() => removeItemFromCart(item.item._id)}>Remove</button>
+//           </td>
+//         </tr>
+//       ))}
+//     </tbody>
+//   </table>
+//       <p>Total: {calculateTotalValue()}</p>
+//   <button className="btn btn-primary" onClick={() => setShowCheckout(true)}>
+//   Buy Now
+// </button>
 
-
+//     </div>
+//   )}
+// </div>
 
 //     <section class="addline">
 //     <div class="container" id="checkout_content">
@@ -324,7 +338,7 @@ export default CartBody;
 //                     <p>subtotal</p>
 //                     <p>Delivery Charge</p>
 //                     <p class="all">Discount</p>
-                   
+
 //                     <h6>total</h6>
 //                 </div>
 
@@ -348,7 +362,6 @@ export default CartBody;
 //         </button>
 //             </div>
 //         </div>
-       
 
 //     </div>
 // </section>

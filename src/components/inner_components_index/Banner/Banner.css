@@ -1,40 +1,49 @@
-/* Custom styles for the next button */
-.custom-indicator {
-    background-color: #ddd;
-    border: none;
-    width: 12px;
-    height: 12px;
-    margin: 0 5px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-  }
-  @media (max-width: 767px) {
-    
-    .banner {
+#myCarousel {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-        height: 30vh;
-    }
+.carousel-container {
+  padding: 2px;
+  margin: 2px;
+}
 
-    .banner .carousel{
-        height: 30vh;
-    }
-    .banner .carousel .carousel-slide .item{
-        height: 30vh;
-    }
+.banner {
+  width: 100%;
+  margin-top: 2px;
+  padding: 0;
+}
+
+.carousel-inner {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center; /* Center vertically */
+}
+
+.carousel-item {
+  width: 100%;
+  position: relative;
+}
+
+.carousel-item img {
+  object-fit: cover; /* Make sure the entire image is visible */
+  height: 50vh; /* Set the height to 100% of the container */
+  padding: 5px;
+  border-radius: 10px; /* Add border radius */
+}
+
+/* Responsive Styles for Mobile */
+@media (max-width: 767px) {
+  .carousel-inner {
+    height: 100%;
   }
-  .custom-indicator.selected {
-    background-color: #333;
+
+  .carousel-item img {
+    object-fit: cover; /* Make sure the entire image is visible */
+    height: 20vh; /* Set the height to 100% of the container */
+    padding: 5px;
   }
-  
-  /* Additional styles for the next button icon can be added here */
-  .carousel .control-prev::before {
-    content: '\2190'; /* Unicode character for left arrow */
-    font-size: 24px;
-  }
-  
-  /* Style for the next button */
-  .carousel .control-next::before {
-    content: '\2192'; /* Unicode character for right arrow */
-    font-size: 24px;
-  }
+}

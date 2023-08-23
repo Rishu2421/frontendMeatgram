@@ -1,15 +1,24 @@
+/* Original styles */
 .suggestions {
-    position: absolute;
-    background-color: #a58686; /* Replace with desired background color */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: block; /* Hide the dropdown by default */
-  }
-  
-  .suggestions li {
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  
+  position: absolute;
+  background-color: #a58686;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.suggestions li {
+  padding: 8px;
+  cursor: pointer;
+}
+.form-control::placeholder {
+  color: #b92323; /* Replace with your desired lighter color */
+}
+
+/* Media query for mobile view */
+/* @media (max-width: 767px) {
+  .search-container {
+    padding-bottom: 4rem;
+  } */
+/* } */

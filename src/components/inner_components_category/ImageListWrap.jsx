@@ -1,32 +1,37 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import backendUrl from "../../config";
-export function ImageListWrap({categories,onCategoryChoice}) {
-    const navigate = useNavigate();
-    const handleCategoryClick = (categoryName) => {
-        onCategoryChoice(categoryName);
-        navigate(`/category/${categoryName}`);
-    
-      };
-    
-      
-    
+export function ImageListWrap({ categories, onCategoryChoice }) {
+  const navigate = useNavigate();
+  const handleCategoryClick = (categoryName) => {
+    onCategoryChoice(categoryName);
+    navigate(`/category/${categoryName}`);
+  };
+
   return (
     <section className="image-list-wrap">
       <div className="container">
         <div className="list-img">
           <div className="text-img">
             <a href="/product/allproducts">
-              <img src="images/Rectangle 18 (2).png" style={{ width: "85px", height: "85px" }} alt="All" />
+              <img
+                src="images/Rectangle 18 (2).png"
+                style={{ width: "85px", height: "85px" }}
+                alt="All"
+              />
               All
             </a>
           </div>
           {categories.map((category) => (
             <div className="text-img" key={category.id}>
-              <a href="#" onClick={() => handleCategoryClick(category.name)} >
-                <img src={`${backendUrl}${category.imageUrl}`} style={{ width: "85px", height: "85px" }}  alt={category.name} />
+              <div onClick={() => handleCategoryClick(category.name)}>
+                <img
+                  src={`${backendUrl}${category.imageUrl}`}
+                  style={{ width: "85px", height: "85px" }}
+                  alt={category.name}
+                />
                 {category.name}
-              </a>
+              </div>
             </div>
           ))}
         </div>
@@ -34,7 +39,6 @@ export function ImageListWrap({categories,onCategoryChoice}) {
     </section>
   );
 }
-
 
 // import React, { useState, useEffect } from "react";
 
@@ -49,7 +53,6 @@ export function ImageListWrap({categories,onCategoryChoice}) {
 //         .then(data => setCategories(data))
 //         .catch(error => console.error('Error fetching categories:', error));
 //     }, []);
-
 
 //   return (
 //     <section class="image-list-wrap">

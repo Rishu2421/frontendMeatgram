@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export function ListImageWrap() {
   return (
@@ -7,20 +7,26 @@ export function ListImageWrap() {
         <div className="list-img">
           <ul>
             <li>
-              <a href="#">chiken</a>
+              <a href="#">chiken -> </a>
             </li>
             <li>
               <a href="#">
-                <img src="images/Rectangle 15 (1).png" alt="Farm-raised superior breed" />
-                Farm-raised superior breed
+                <img
+                  src="images/Rectangle 15 (1).png"
+                  alt="Farm-raised superior breed"
+                />
+                Farm-raised superior breed ->
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="#">|</a>
-            </li>
+            </li> */}
             <li>
               <a href="#">
-                <img src="images/Rectangle 16 (1).png" alt="No Added Chemical, Antibiotic residue free." />
+                <img
+                  src="images/Rectangle 16 (1).png"
+                  alt="No Added Chemical, Antibiotic residue free."
+                />
                 No Added Chemical, Antibiotic residue free.
               </a>
             </li>

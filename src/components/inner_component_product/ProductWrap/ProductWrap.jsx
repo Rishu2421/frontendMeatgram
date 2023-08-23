@@ -1,14 +1,22 @@
-import React,{useState} from 'react';
-import './ProductWrap.css'
-import AddToCartButton from '../../product/AddToCartButton/AddToCartButton';
-import BoxWrap from '../BoxWrap/BoxWrap';
-import backendUrl from '../../../config';
+import React, { useState } from "react";
+import "./ProductWrap.css";
+import AddToCartButton from "../../product/AddToCartButton/AddToCartButton";
+import BoxWrap from "../BoxWrap/BoxWrap";
+import backendUrl from "../../../config";
 
-function ProductWrap({ product,userId }) {
-
+function ProductWrap({ product, userId }) {
   const [count, setCount] = useState(1);
-  const { name, image, quantity, numOfPieces, description, mrp,discount,isBoneless } = product;
-  const discountedPrice = mrp - (mrp * (discount / 100));
+  const {
+    name,
+    image,
+    quantity,
+    numOfPieces,
+    description,
+    mrp,
+    discount,
+    isBoneless,
+  } = product;
+  const discountedPrice = mrp - mrp * (discount / 100);
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -20,9 +28,9 @@ function ProductWrap({ product,userId }) {
     }
   };
 
-    const addToCart = async () => {
+  const addToCart = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const response = await fetch(`${backendUrl}/api/cart/addItem`, {
         method: "POST",
@@ -40,60 +48,47 @@ function ProductWrap({ product,userId }) {
       if (response.ok) {
         // Item successfully added to the cart
         // Perform any additional actions or show a success message
-        console.log('Item added to the cart');
+        console.log("Item added to the cart");
       } else {
         // Handle error response
-        console.log('Failed to add item to the cart');
+        console.log("Failed to add item to the cart");
       }
     } catch (error) {
-      console.log('Error adding item to the cart:', error);
+      console.log("Error adding item to the cart:", error);
     }
   };
 
-
   return (
     <section className="productWrap mt-40">
-      <div className="container" style={{"marginTop": "5rem"}}>
+      <div className="container" style={{ marginTop: "5rem" }}>
         <div className="row">
           <div className="col-md-6">
             <div className="images">
-              <img  
-              className='img-fluid'
-              src={`${backendUrl}${image}`}
-              style={{ width: '40rem', height: '28rem', borderRadius: '15px' }}
-              alt={name} />
+              <img
+                className="img-fluid"
+                src={`${backendUrl}${image}`}
+                style={{
+                  width: "40rem",
+                  height: "28rem",
+                  borderRadius: "15px",
+                }}
+                alt={name}
+              />
             </div>
           </div>
           <div className="col-md-6 mt-10">
             <div className="text-wrap">
-              <h3>{name} - Mini Bites</h3>
+              <h3>{name}</h3>
               <div className="list-info">
                 <ul>
-                  <li>
-                    {isBoneless&&'Boneless'}
-                  </li>
-                  <li>
-                    |
-                  </li>
-                  <li>
-                    Bite size pieces
-                  </li>
+                  <li>{isBoneless && "Boneless"}</li>
+                  <li>|</li>
+                  <li>Bite size pieces</li>
                 </ul>
               </div>
-              <p>
-                Keep your chopping board aside, we've got the perfect cut of
-                chicken for Chicken Popcorn, Garlic Chicken Bites, Chicken
-                Nuggets and more!
-              </p>
-              <p>
-                Licious chickens are raised on biosecure farms and are
-                antibiotic-residue free. They are cut and cleaned by experts so
-                you can cook them straight off the pack. Our chicken is stored
-                in temperature-controlled conditions, between 0-4?, to ensure
-                that it is chilled, never frozen. Order Licious Chicken Mini
-                Bites (Boneless) online and get it home delivered.
-              </p>
-             
+
+              <p>{description}</p>
+
               {/* <div className="box-wrap">
                 <div className="first-div">
                   <div className="list1">
@@ -119,27 +114,35 @@ function ProductWrap({ product,userId }) {
                 </div>
               </div> */}
               <BoxWrap numOfPieces={numOfPieces} quantity={quantity} />
-                        
+
               <div className="cart-menu">
                 <div className="list">
                   <ul>
                     <li className="text-danger fw-bold">
-                        <i className="fa fa-inr"  aria-hidden="true"></i>{discountedPrice}
+                      <i className="fa fa-inr" aria-hidden="true"></i>
+                      {discountedPrice}
                     </li>
                     <li>
-                        <del>MRP {mrp}</del>
+                      <del>MRP {mrp}</del>
                     </li>
+                    <li>{discount} % OFF</li>
                     <li>
-                      {discount} % OFF
+                      <button>
+                        <span onClick={handleDecrement}>-</span>
+                        {count}
+                        <span
+                          onClick={handleIncrement}
+                          className="font-weight-bold"
+                        >
+                          +
+                        </span>
+                      </button>
                     </li>
-                    <li><button><span onClick={handleDecrement}>-</span>{count}<span onClick={handleIncrement}>+</span></button></li>
-                         
                   </ul>
                 </div>
               </div>
               <div className="menu-button">
-              <AddToCartButton product={product}  />
-                    
+                <AddToCartButton product={product} />
               </div>
             </div>
           </div>

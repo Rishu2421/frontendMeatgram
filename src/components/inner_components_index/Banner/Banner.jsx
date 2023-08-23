@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "bootstrap/dist/js/bootstrap";
 import axios from "axios";
 import backendUrl from "../../../config";
-import './Banner.css'; // Import your custom styles for the banner if needed
-
+import "./Banner.css"; // Import your custom styles for the banner if needed
 function Banner() {
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -28,7 +28,7 @@ function Banner() {
     border: "none",
     width: "12px",
     height: "12px",
-    
+
     borderRadius: "50%",
     cursor: "pointer",
     transition: "background-color 0.3s ease-in-out",
@@ -50,46 +50,51 @@ function Banner() {
   }, [images.length]);
 
   return (
-    <section className="banner" style={{margin:"-8px"}}>
-<Carousel
-          selectedItem={currentImageIndex}
-          showStatus={false}
-          showThumbs={false}
-          autoPlay
-          interval={5000}
-          className="carousel"
-          infiniteLoop
-          stopOnHover={true}
-          onChange={(index) => setCurrentImageIndex(index)}
-          style={{marginTop:"-20px"}}
-          renderIndicator={(clickHandler, isSelected, index, label) => (
+    <section className="banner">
+      <div className="caraousel-coontainer">
+        <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
+          <div className="carousel-inner">
+            {images.map((banner, index) => (
+              <div className="carousel-item active">
+                <img
+                  src={`${backendUrl}${banner.image}`}
+                  alt={`Banner ${index + 1}`}
+                />
+              </div>
+            ))}
+          </div>
           <button
+            className="carousel-control-prev"
             type="button"
-            onClick={clickHandler}
-            key={index}
-            aria-label={`${label} ${index + 1}`}
-            title={`${label} ${index + 1}`}
-            className={`custom-indicator ${isSelected ? 'selected' : ''}`}
-          />
-        )}
-        >
-          {images.map((banner, index) => (
-            <div key={index} className="carousel-slide">
-              <img
-                src={`${backendUrl}${banner.image}`}
-                className="item"
-                alt={`Banner ${index + 1}`}
-              />
-            </div>
-          ))}
-        </Carousel>
-    
-        </section>
+            data-bs-target="#myCarousel"
+            data-bs-slide="prev"
+          >
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#myCarousel"
+            data-bs-slide="next"
+          >
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
-
 export default Banner;
-{/* <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+{
+  /* <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -114,8 +119,5 @@ export default Banner;
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div> */}
-
-
-
-
+</div> */
+}

@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Card from './Card';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Card from "./Card";
 
-import backendUrl from '../../config';
-function Items({ showAll, category,hideTitle }) {
+import backendUrl from "../../config";
+
+function Items({ showAll, category, hideTitle }) {
   const [products, setProducts] = useState([]);
-  const [categoryName,setCategoryName]=useState("");
-
+  const [categoryName, setCategoryName] = useState("");
 
   useEffect(() => {
     fetchProducts();
-    console.log(backendUrl)
   }, [category]);
 
   const fetchProducts = async () => {
@@ -18,7 +17,7 @@ function Items({ showAll, category,hideTitle }) {
       let response;
       if (category) {
         response = await axios.get(`${backendUrl}/api/categories/${category}`);
-        setCategoryName(category)
+        setCategoryName(category);
       } else {
         response = await axios.get(`${backendUrl}/api/products/allproducts`);
       }
@@ -28,48 +27,41 @@ function Items({ showAll, category,hideTitle }) {
     }
   };
 
-  const getRandomCards = (array, count) => {
-    if (!Array.isArray(array)) {
-      return []; // or throw an error, depending on your requirement
-    }
-  
-    const shuffledArray = [...array].sort(() => 0.5 - Math.random());
-    return shuffledArray.slice(0, count);
-  };
-
   const renderProducts = () => {
     if (showAll) {
-      return products || []; // Return products array or an empty array if it is not defined yet
+      return products || [];
     } else {
-      const randomCards = getRandomCards(products, 3);
-      return randomCards || []; // Return randomCards array or an empty array if it is not defined yet
+      return products.slice(0, 6) || []; // Limit to 6 products to display two cards in one line
     }
   };
 
   const getTitle = () => {
     if (showAll || category) {
-      return category ? `${category}` : 'All Products';
+      return category ? `${category}` : "All Products";
     } else {
-      return 'You may also like';
+      return "You may also like";
     }
   };
+
   return (
     <div>
       <section className="category-info-text">
         <div className="container">
-        {hideTitle || 
-          <div className="title">
-          <h2>{getTitle()}</h2>
-          </div>
-        }
-          <div className="info-text">
-          {Array.isArray(renderProducts()) ? (
-  renderProducts().map((product) => (
-    <Card key={product._id} product={product} />
-  ))
-) : (
-  <p>No products to display.</p>
-)}  
+          {!hideTitle && (
+            <div className="title">
+              <h2>{getTitle()}</h2>
+            </div>
+          )}
+          <div className="row">
+            {Array.isArray(renderProducts()) && renderProducts().length > 0 ? (
+              renderProducts().map((product) => (
+                <div className="col-md-6 col-lg-4 mb-4" key={product._id}>
+                  <Card product={product} />
+                </div>
+              ))
+            ) : (
+              <p>No products to display.</p>
+            )}
           </div>
         </div>
       </section>
