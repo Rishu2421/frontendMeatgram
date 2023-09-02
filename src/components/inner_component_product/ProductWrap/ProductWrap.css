@@ -1,18 +1,33 @@
 .btn-custom {
-    background-color: #E90C0C;
-    color: #FFFFFF;
-    text-decoration: none;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 2rem;
-    height: 44px;
-    max-width: 150px;
-  }
-  
-  .btn-custom:hover {
-    background-color: #FFFFFF;
-    color: #E90C0C;
+  background-color: #e90c0c;
+  color: #ffffff;
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 2rem;
+  height: 44px;
+  max-width: 150px;
+}
 
+.btn-custom:hover {
+  background-color: #ffffff;
+  color: #e90c0c;
+}
+/* Default style for mobile */ /* ProductWrap.css */
+.images-product {
+  /* width: 40rem; */
+  height: 15rem; /* Default height for mobile */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Media query for larger screens (e.g., tablets and desktops) */
+@media screen and (min-width: 768px) {
+  .images-product {
+    /* width: 100%; */
+    border-radius: 20px;
+    height: 100%;
   }
-  
+}

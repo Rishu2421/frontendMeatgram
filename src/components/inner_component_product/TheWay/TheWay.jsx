@@ -1,12 +1,16 @@
-import React from 'react';
-import './TheWay.css';
+import React from "react";
+import "./TheWay.css";
 
 function TheWay() {
   return (
-    <section className="Theway">
+    <section className="Theway text-center">
+      {" "}
+      {/* Add the 'text-center' class to center-align the content */}
       <div className="container">
         <div className="title">
-          <h3><b>The</b> Meat Gram <b>way</b></h3>
+          <h3>
+            <b>The</b> Meat Gram <b>way</b>
+          </h3>
         </div>
         <div className="row">
           <div className="col-md-4">

@@ -27,13 +27,13 @@ function Card({ product }) {
 
           <h6 className="d-inline me-4">Pieces: {numOfPieces}</h6>
           <h6 className="d-inline">Quantity: {quantity}</h6>
-          <div className="button-text">
+          <div className="button-text mt-3">
             <span className="mrp-text">
               MRP: <i className="fa fa-inr" aria-hidden="true"></i>
               {mrp}
             </span>
 
-            <AddToCartButton product={product} />
+            <AddToCartButton product={product} count={1} />
           </div>
         </div>
       </div>
