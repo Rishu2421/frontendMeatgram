@@ -31,6 +31,7 @@ function Category({ categoryChoice }) {
 
   const handleCategoryChoice = (categoryName) => {
     categoryChoice(categoryName);
+    
     navigate(`/category/${categoryName}`);
   };
 

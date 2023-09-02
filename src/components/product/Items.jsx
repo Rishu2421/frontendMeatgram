@@ -3,7 +3,7 @@ import axios from 'axios';
 import Card from './Card';
 import backendUrl from '../../config';
 
-function Items({ showAll, category, title, subtitleProps }) {
+function Items({key, showAll, category, title, subtitleProps }) {
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState("");
 
@@ -16,7 +16,10 @@ function Items({ showAll, category, title, subtitleProps }) {
       let response;
       if (category) {
         response = await axios.get(`${backendUrl}/api/categories/${category}`);
+        console.log(response.data)
+
         setCategoryName(category);
+
       } else {
         response = await axios.get(`${backendUrl}/api/products/allproducts`);
       }
@@ -45,16 +48,16 @@ function Items({ showAll, category, title, subtitleProps }) {
   };
 
   return (
-    <div className="menu bestsellers-container" id="scroll2">
+    <div className="menu bestsellers-container" id={`scroll${key}`}>
        <div className="heading">
         {title && <h1>{title}</h1>}
-        <h3>&mdash; {subtitleProps} &mdash;</h3>
+        <h3>&mdash; {subtitleProps.toUpperCase()} &mdash;</h3>
       </div>
-      <div className="card-container">
+   
         {renderProducts().map((product, index) => (
           <Card key={index} product={product} />
         ))}
-      </div>
+    
     </div>
   );
 }

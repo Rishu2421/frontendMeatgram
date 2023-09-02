@@ -5,7 +5,7 @@ function Footer() {
     <div class="footer">
     <div class="web_logo">
         <div class="logo_web">
-        <img src="./assets/MEAT GRAM (1).jpg" />
+        <img src="/assets/MEAT GRAM (1).jpg" alt="logo-footer"/>
         </div>
         <div class="texts">
         <h1>Cher's<span> Meatgram</span></h1>

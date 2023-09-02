@@ -21,7 +21,7 @@ function CartBody(){
         try {
           
           const token = Cookies.get('token');
-          const response = await fetch(`${backendUrl}/api/cart/`, {
+          const response = await fetch(`${backendUrl}/api/cart`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -94,7 +94,7 @@ return (
     {cartItems.length === 0 ? (
         <div className="text-center">
                                 <p>Your cart is feeling a bit empty...</p>
-                                <img className="img img-fluid" src="./images/empty_cart_.png" alt="Illustration" />
+                                <img className="img" style={{height:"75vh", width:"75%"}}src="./images/empty_cart_.png" alt="Illustration" />
                             </div>
       ) : (
     <div className="container mt-5">
@@ -114,20 +114,17 @@ return (
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((item,index) => (
-                <tr key={`${item.item._id}-${index}`}>
-                  <td>{item.item.name}</td>
-                  <td>{item.quantity}</td>
-                  <td>{item.item.price}</td>
-                  <td>{item.quantity * item.item.price}</td>
-
-
-                  <td>
-                    <button className="btn btn-danger btn-responsive" onClick={() => removeItemFromCart(item.item._id)}>Remove</button>
-                  </td>
-                </tr>
-                
-              ))}
+            {cartItems.map((item, index) => (
+  <tr key={`${item.item&&item.item._id}-${index}`}>
+    <td>{item.item && item.item.name}</td>
+    <td>{item && item.quantity}</td>
+    <td>{item.item && item.item.price}</td>
+    {/* <td>{item.item && item.quantity * item.item && item.item.price}</td> */}
+    <td>
+      <button className="btn btn-danger btn-responsive" onClick={() => removeItemFromCart(item.item._id)}>Remove</button>
+    </td>
+  </tr>
+))}
               <tr>
               <td colSpan="3"></td>
               <th>Total:</th>

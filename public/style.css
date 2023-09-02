@@ -1168,17 +1168,109 @@ img{
 
 
 /* <------------ Responsive Why Meatgram --------------> */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.addline{
+  width: 60%;
+  padding: 20px 0px;
+  margin:0 auto;
+  display: block;
+  }
+  .addline .address p{
+  text-align: center;
+  }
+  .addline .address h5{
+  text-align: center;
+  
+  }
+  .addline .address h3 {
+      font-size: 20px;
+      text-transform: capitalize;
+      padding-top: 20px 0px;
+      margin-top: 20px;
+      text-align: center;
+  }
+  .addline .address button{
+      margin: 0 auto;
+      display: block;
+      padding: 10px 15px;
+      background-color: #E90C0C;
+      margin-top: 30px ;
+      border-radius: 10px; 
+      color: #fff;
+      border: 1px solid #E90C0C;
+      border:none;
+      font-weight: 600;
+  }
+  .addline .address button:hover {
+      background-color: #fff;
+      color: #E90C0C;
+  }
+  .addline .bill{
+      border: 1px dotted black;
+      width:70%;
+      margin: 0 auto;
+      display: block;
+  }
+  .addline .bill .left-right{
+      display: flex ;
+      justify-content: space-around;
+  
+  }
+  .addline .bill .el {
+      padding: 10px 90px;
+      font-size: 20px;
+  }
+  .addline .bill .left-right .all {
+  
+  border-bottom: 1px dotted;
+  
+  }
+  .addline .bill .left-right{
+  padding-bottom: 10px;
+  }
+  .payment .left-right{
+  display:flex ;
+  justify-content: space-around;
+  }
+  .payment{
+  padding: 40px 0px;
+  margin: 0 auto ;
+  display: block;
+  width:60%;
+  
+  
+  }
+  .payment .left input {
+  margin-right: 15px;
+  margin-top: 10px;
+  } 
+  .payment .left  i {
+  font-size:20px;
+  margin-right:20px;
+  }
+  .payment .right li a{
+  text-decoration:none ;
+  list-style: none;
+  color: black ;
+  padding: 30px 0px;
+  font-size: 20px;
+  }
+  .payment .right li{
+  list-style: none;
+  }
+  .payment p{
+  text-align:center;
+  padding: 30px 0px;
+  font-size: 14px;
+  
+  }
+  .payment button{
+  background-color:red;
+  font-size:20px ;
+  padding:10px 15px;
+  color: white;
+  margin: 0 auto;
+  display: block;
+  border: none;
+  border-radius:10px;
+  
+  }

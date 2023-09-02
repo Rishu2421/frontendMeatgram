@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import backendUrl from "../../config";
 import Items from "../product/Items";
+import Card from "../product/Card";
+
 function TopSellingProducts() {
   const [products, setProducts] = useState([]);
 
@@ -18,12 +20,20 @@ function TopSellingProducts() {
   }, []);
 
   return (
-    
-    <Items />
+    <div className="menu bestsellers-container" id={`scroll1`}>
+      <div className="heading">
+        <h1>Top Selling Marinates</h1>
+        <h3>&mdash; Menu &mdash;</h3>
+      </div>
+      {products.map((product, index) => (
+        <Card key={index} product={product} />
+      ))}
+    </div>
   );
 }
 
 export default TopSellingProducts;
+
 
 
 // <section className="category-wrap selling-product">

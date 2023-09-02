@@ -16,19 +16,18 @@ import LoginModal from "../Navigation/LoginModal";
 import Cookies from 'js-cookie';
 import SearchBar from "../Search/SearchBar";
 import MobileDownload from "../MobileDownload/MobileDownload";
+import CategoryApp from "../inner_components_category/CategoryApp";
 function NavBar() {
   const [categoryName, setCategoryName] = useState("");
   const navigate = useNavigate();
   const [isToggleOn, setIsToggleOn] = useState(false); // Toggle state
 
   useEffect(() => {
-    console.log("useEffect triggered");
     const toggle = document.getElementById('toggle');
     const menu = document.getElementById('menu');
     const backdrop = document.getElementById('backdrop');
     
     if (toggle && menu) {
-      console.log("Adding event listener");
       toggle.addEventListener('click', () => {
         
         toggle.classList.toggle('on');
@@ -75,7 +74,7 @@ const handleToggleClick = () => {
         <Routes >
           <Route exact path="/" element={<Body categoryChoice={handleCategoryChoice} />} />
           <Route path="/category" element={<Category categoryChoice={handleCategoryChoice} />} />
-          <Route path="/category/:categoryName" element={<Items category={categoryName} showAll={true} />} />
+          <Route path="/category/:categoryName" element={<CategoryApp categoryChoice={handleCategoryChoice} category={categoryName} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/products" element={<Product />} />
           <Route path="/product/:productType" element={<Items showAll={true} />} />

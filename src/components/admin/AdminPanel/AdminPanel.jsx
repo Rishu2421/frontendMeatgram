@@ -11,7 +11,7 @@ import BannerComponent from '../AdminControl/Banner/BannerComponent';
 
 const AdminPanel = ({ onLogout }) => {
   const location = useLocation();
-  const showAdminPanel = location.pathname === '/admin';
+  const showAdminPanel = location.pathname === '/admin/';
 
   return (
     <div className="container">

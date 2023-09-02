@@ -22,7 +22,6 @@ function Body({ categoryChoice }){
       <Banner />
       <TopSellingProducts />
       {/* <Meetgraminfo /> */}
-
       <BonelessCuts />  
       <Meetgram />
       <AboutUs />

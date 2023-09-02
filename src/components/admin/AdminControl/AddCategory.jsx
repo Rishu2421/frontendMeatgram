@@ -17,7 +17,7 @@ const AddCategory = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('name', name);
+    formData.append('name', name.toLowerCase());
     formData.append('image', image);
     
     try {
@@ -58,7 +58,7 @@ const AddCategory = () => {
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter category name"
+            placeholder="Enter category name all small"
             value={name}
             onChange={handleNameChange}
             required

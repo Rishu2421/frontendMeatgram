@@ -142,7 +142,7 @@ const AddProduct = () => {
           </label>
           <input
             type="file"
-            accept="image/jpeg"
+          
             name="image"
             onChange={handleImageUpload}
             className="form-control"

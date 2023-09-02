@@ -43,8 +43,8 @@ const AddToCartButton = ({ product }) => {
   };
 
   return (
-    <div>
-      <button className="add-to-cart-button btn btn-danger btn-lg custom-button" onClick={addToCart} disabled={isAddingToCart}>
+  <>
+      <button className="add-to-cart-btn" onClick={addToCart} disabled={isAddingToCart}>
         {isAddingToCart ? 'Adding...' : 'Add to Cart'}
       </button>
       {isItemAdded && (
@@ -52,7 +52,7 @@ const AddToCartButton = ({ product }) => {
           Item added to cart!
         </div>
       )}
-    </div>
+      </>
   );
 };
 

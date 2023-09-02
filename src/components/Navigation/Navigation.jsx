@@ -63,15 +63,16 @@ console.log(token)
     
     <div class="search">
     <a href="/">
-    <img src="./assets/MEAT GRAM (1).jpg" alt="" />
+    <img src="/assets/MEAT GRAM (1).jpg" alt="" />
     </a>
     
     <SearchBar />
 
     <div className="boxthree">
     <i className="bi bi-tags" style={{color: "white"}}><p>Category</p></i>
+    <a href="/cart">
     <i className="bi bi-cart2" style={{color: "white"}}><p>Cart</p></i>
-
+</a>
     {isAuthenticated?
     <div className={`cart mb-2`}>
             <div className="dropdown">
