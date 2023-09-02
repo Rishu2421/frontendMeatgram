@@ -2,23 +2,29 @@ import React from "react";
 
 function AboutUs() {
   return (
-    <section className="ABOUT-wrap">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="title">
-              <h2>ABOUT US</h2>
-            </div>
-            <p>
-              In publishing and graphic design, Lorem ipsum is a placeholder
-              text commonly used to demonstrate the visual form of a document or
-              a typeface without relying on meaningful content. Lorem ipsum may
-              be used as a placeholder before final copy is available.
-            </p>
-          </div>
+    <div class="about" id="Aboutus">
+      <div class="about_main">
+        <div class="image">
+          <img src="./assets/chicken.jpeg" />
+        </div>
+
+        <div class="about_text">
+          <h1><span>About</span>Us</h1>
+          <p>
+            Indulge in the luxurious convenience of having our premium selection
+            of freshly cut meats and seafood, Experience the exceptional quality
+            of our tender cuts, with our pricing structured to be accessible to
+            all. Furthermore, we take pride in our commitment to natural
+            ingredients, having earned all the necessary FSSAI safety and
+            quality certifications that guarantee our product's authenticity and
+            purity.
+          </p>
         </div>
       </div>
-    </section>
+
+      <a href="#" class="about_btn">Order Now</a>
+    </div>
+
   );
 }
 

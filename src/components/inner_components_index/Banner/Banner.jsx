@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import 'bootstrap/dist/js/bootstrap';
 import axios from "axios";
 import backendUrl from "../../../config";
 import './Banner.css'; // Import your custom styles for the banner if needed
-
 function Banner() {
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -50,45 +50,71 @@ function Banner() {
   }, [images.length]);
 
   return (
-    <section className="banner" style={{margin:"-8px"}}>
-<Carousel
-          selectedItem={currentImageIndex}
-          showStatus={false}
-          showThumbs={false}
-          autoPlay
-          interval={5000}
-          className="carousel"
-          infiniteLoop
-          stopOnHover={true}
-          onChange={(index) => setCurrentImageIndex(index)}
-          style={{marginTop:"-20px"}}
-          renderIndicator={(clickHandler, isSelected, index, label) => (
-          <button
-            type="button"
-            onClick={clickHandler}
-            key={index}
-            aria-label={`${label} ${index + 1}`}
-            title={`${label} ${index + 1}`}
-            className={`custom-indicator ${isSelected ? 'selected' : ''}`}
-          />
-        )}
-        >
-          {images.map((banner, index) => (
-            <div key={index} className="carousel-slide">
-              <img
-                src={`${backendUrl}${banner.image}`}
-                className="item"
-                alt={`Banner ${index + 1}`}
-              />
-            </div>
-          ))}
-        </Carousel>
-    
-        </section>
+    <div id="homepage-slider" class="st-slider">
+
+    <input type="radio" class="cs_anchor radio" name="slider" id="slide1"/>
+    <input type="radio" class="cs_anchor radio" name="slider" id="slide2"/>
+    <input type="radio" class="cs_anchor radio" name="slider" id="slide3"/>
+    <input type="radio" class="cs_anchor radio" name="slider" id="play1" checked=""/>
+
+    <div class="images">
+       <div class="images-inner">
+        <div class="image-slide">
+            <img src="https://i.ytimg.com/vi/rYKgKfvpuus/maxresdefault.jpg" alt="" class="image bg-yellow" />
+        </div>
+        <div class="image-slide">
+          <img src="https://i.ytimg.com/vi/rYKgKfvpuus/maxresdefault.jpg" alt="" class="image bg-yellow" />
+        </div>
+        <div class="image-slide">
+          <img src="https://i.ytimg.com/vi/rYKgKfvpuus/maxresdefault.jpg" alt="" class="image bg-yellow" />
+        </div>
+      </div>
+    </div>
+  
+    <div class="labels">
+        <label for="slide1" class="label">text slide 1</label>
+        <label for="slide2" class="label">text slide 2</label>
+        <label for="slide3" class="label">text slide 3</label>
+      
+        <div class="fake-radio">
+          <label for="slide1" class="radio-btn"></label>
+          <label for="slide2" class="radio-btn"></label>
+          <label for="slide3" class="radio-btn"></label>
+        </div>
+    </div>
+</div>
   );
 }
 
 export default Banner;
+
+
+
+// {/* <section className="banner">
+// <div>
+// <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
+//     <div className="carousel-inner">
+
+
+//     {images.map((banner, index) => (
+        
+//       <div className="carousel-item active">
+// <img src={`${backendUrl}${banner.image}`} alt={`Banner ${index + 1}`} />
+// </div>
+//       ))}
+
+//     </div>
+//     <button className="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+//       <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+//       <span className="visually-hidden">Previous</span>
+//     </button>
+//     <button className="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+//       <span className="carousel-control-next-icon" aria-hidden="true"></span>
+//       <span className="visually-hidden">Next</span>
+//     </button>
+//   </div>
+//   </div>
+//     </section> */}
 {/* <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

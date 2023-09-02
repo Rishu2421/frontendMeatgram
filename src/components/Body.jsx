@@ -17,13 +17,15 @@ function Body({ categoryChoice }){
   };
     return (
         <div>
-      <Banner />
+        
       <CategoryWrap onCategoryChoice={handleCategoryChoice}/>
+      <Banner />
       <TopSellingProducts />
-      <BonelessCuts />
-      <AboutUs />
+      {/* <Meetgraminfo /> */}
+
+      <BonelessCuts />  
       <Meetgram />
-      <Meetgraminfo />
+      <AboutUs />
       <Testimonials />
         </div>
     )

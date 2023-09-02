@@ -2,75 +2,52 @@ import React from "react";
 
 function Footer() {
   return (
-    <section className="footer">
-      <div className="container">
-        <div className="row footbottom">
-          <div className="col-md-4">
-            <div className="first">
-              <a href="/"> <img src="/images/logo.png" alt="Logo" /> </a>
-              <p>
-                Pamper Your Taste Buds With This Rich And Flavourful Chicken
-                Curry Recipe!
-              </p>
-             
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="second">
-              <h2>User link</h2>
-              <ul>
-                <li>
-                  <a href="#">Location area wise outlet</a>
-                </li>
-                <li>
-                  <a href="#">Privacy Policy</a>
-                </li>
-                <li>
-                  <a href="#">Terms &amp; conditions</a>
-                </li>
-                <li>
-                  <a href="#">FaQs</a>
-                </li>
-                <li>
-                  <a href="#">Customer Support</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="third">
-              <h2>contact us</h2>
-              <p>
-              Shop No R-02 Panchwati Complex, Panchwati Colony, Lalghati, Bhopal
-              </p>
-              <h2>social icon</h2>
-              <ul>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-instagram" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-whatsapp" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-comment" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-youtube-play" aria-hidden="true"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+    <div class="footer">
+    <div class="web_logo">
+        <div class="logo_web">
+        <img src="./assets/MEAT GRAM (1).jpg" />
         </div>
-      </div>
-    </section>
+        <div class="texts">
+        <h1>Cher's<span> Meatgram</span></h1>
+        </div>
+    </div>
+
+    <div class="contac_detail">
+        <p><h1>CONTACT US</h1></p>
+        <div class="textone">
+            <i class="bi bi-telephone-forward-fill"></i>
+            <p>+91 7055205010</p>
+        </div>
+
+        <div class="textone">
+            <i class="bi bi-envelope-fill"></i>
+            <p> supportbhopal@chersmeatgram.com</p>
+        </div>
+        
+
+        <div class="textone">
+            <i class="bi bi-geo-alt-fill"></i>
+           
+            <p> Shop No-2 Panchwati Colony Near Hotel
+                Nirmal Residency Gate, Lalghati, Bhopal</p>
+        </div>
+    </div>
+
+    <div class="services_link">
+      
+        <h1>QUICK LINKS</h1>
+        
+        <p>Privacy Policy</p>
+        <p>Terms & Conditions</p>
+        <p>FAQ'S</p>
+        <div class="media-icons">
+            <a href="https://www.facebook.com/chersmeatgram"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/chersmeatgram/"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@CHERSMeatGram"><i class="fab fa-youtube"></i></a>
+          </div>
+    </div>
+
+</div>
   );
 }
 

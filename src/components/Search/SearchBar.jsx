@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Search.css'
 import backendUrl from '../../config';
-const SearchBar = () => {
+const SearchBar = ({toggleMenu}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const searchInputRef = useRef();
+  const suggestionsRef = useRef();
   const [itemsName,setItemsName]=useState([]);
   const [itemsData,setItemsData]=useState([]);
   const navigate = useNavigate();
@@ -23,6 +24,19 @@ const SearchBar = () => {
 
 
   useEffect(() => {
+    document.addEventListener('click', handleDocumentClick);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
+  const handleDocumentClick = (e) => {
+    if (suggestionsRef.current && !suggestionsRef.current.contains(e.target)) {
+      setSuggestions([]);
+    }
+  };
+
+  useEffect(() => {
     const handleFormSubmission = async () => {
       if (searchQuery !== '') {
         const nameToSearch = searchQuery;
@@ -31,8 +45,13 @@ const SearchBar = () => {
         if (foundObject) {
           const productId = foundObject._id;
           console.log('Perform search for ID:', productId);
-
+          setSearchQuery('');
+          setSuggestions([]);
+          setItemsData([]); // Clear search resultswha
+          // Close the toggle menu using the function passed from the parent component
+          toggleMenu();
           navigate(`products?ids=${productId}`);
+
           // For example, pass it to other functions or make an API call with the ID
         } else {
           console.log('Name not found in the array.');
@@ -97,38 +116,47 @@ const SearchBar = () => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <div className="search-container dropdown" ref={searchInputRef}>
-        <input
-          type="text"
-          placeholder="Search.."
-          className="form-control"
-          name="search"
-          value={searchQuery}
-          onChange={handleInputChange}
-          style={{ color: 'white' }}
-        />
-        <button type="submit">
-          <i className="fa fa-search"></i>
-        </button>
-      </div>
-
-      {suggestions.length > 0 && (
-        <ul className="suggestions dropdown-menu">
-          {suggestions.map((suggestion, index) => (
-            <li
-              className="dropdown-item"
-              key={index}
-              onClick={() => handleSuggestionClick(suggestion)}
-              style={{ color: 'white' }}
-            >
-              {suggestion}
-            </li>
-          ))}
-        </ul>
-      )}
-    </form>
+ 
+    <div class="input-box">
+    <i class="uil uil-search"></i>
+    <input type="text" placeholder="Search here..." />
+    <button class="button">Search</button>
+  </div>
+    
   );
 };
 
 export default SearchBar;
+
+
+// <form onSubmit={handleFormSubmit}>
+// <div className="search-container dropdown" ref={searchInputRef}>
+//   <input
+//     type="text"
+//     placeholder="Search.."
+//     className="form-control"
+//     name="search"
+//     value={searchQuery}
+//     onChange={handleInputChange}
+//     style={{ color: 'white' }}
+//   />
+//   <button type="submit">
+//     <i className="fa fa-search"></i>
+//   </button>
+// </div>
+
+// {suggestions.length > 0 && (
+//   <ul className="suggestions dropdown-menu">
+//     {suggestions.map((suggestion, index) => (
+//       <li
+//         className="dropdown-item"
+//         key={index}
+//         onClick={() => handleSuggestionClick(suggestion)}
+//         style={{ color: 'white' }}
+//       >
+//         {suggestion}
+//       </li>
+//     ))}
+//   </ul>
+// )}
+// </form>

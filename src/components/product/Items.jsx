@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
-
 import backendUrl from '../../config';
-function Items({ showAll, category,hideTitle }) {
-  const [products, setProducts] = useState([]);
-  const [categoryName,setCategoryName]=useState("");
 
+function Items({ showAll, category, title, subtitleProps }) {
+  const [products, setProducts] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
 
   useEffect(() => {
     fetchProducts();
-    console.log(backendUrl)
   }, [category]);
 
   const fetchProducts = async () => {
@@ -18,7 +16,7 @@ function Items({ showAll, category,hideTitle }) {
       let response;
       if (category) {
         response = await axios.get(`${backendUrl}/api/categories/${category}`);
-        setCategoryName(category)
+        setCategoryName(category);
       } else {
         response = await axios.get(`${backendUrl}/api/products/allproducts`);
       }
@@ -30,51 +28,56 @@ function Items({ showAll, category,hideTitle }) {
 
   const getRandomCards = (array, count) => {
     if (!Array.isArray(array)) {
-      return []; // or throw an error, depending on your requirement
+      return [];
     }
-  
+
     const shuffledArray = [...array].sort(() => 0.5 - Math.random());
     return shuffledArray.slice(0, count);
   };
 
   const renderProducts = () => {
     if (showAll) {
-      return products || []; // Return products array or an empty array if it is not defined yet
+      return products || [];
     } else {
       const randomCards = getRandomCards(products, 3);
-      return randomCards || []; // Return randomCards array or an empty array if it is not defined yet
+      return randomCards || [];
     }
   };
 
-  const getTitle = () => {
-    if (showAll || category) {
-      return category ? `${category}` : 'All Products';
-    } else {
-      return 'You may also like';
-    }
-  };
   return (
-    <div>
-      <section className="category-info-text">
-        <div className="container">
-        {hideTitle || 
-          <div className="title">
-          <h2>{getTitle()}</h2>
-          </div>
-        }
-          <div className="info-text">
-          {Array.isArray(renderProducts()) ? (
-  renderProducts().map((product) => (
-    <Card key={product._id} product={product} />
-  ))
-) : (
-  <p>No products to display.</p>
-)}  
-          </div>
-        </div>
-      </section>
+    <div className="menu bestsellers-container" id="scroll2">
+       <div className="heading">
+        {title && <h1>{title}</h1>}
+        <h3>&mdash; {subtitleProps} &mdash;</h3>
+      </div>
+      <div className="card-container">
+        {renderProducts().map((product, index) => (
+          <Card key={index} product={product} />
+        ))}
+      </div>
     </div>
   );
 }
 
 export default Items;
+
+
+
+// <section className="category-info-text">
+//         <div className="container">
+//         {hideTitle || 
+//           <div className="title">
+//           <h2>{getTitle()}</h2>
+//           </div>
+//         }
+//           <div className="info-text">
+//           {Array.isArray(renderProducts()) ? (
+//   renderProducts().map((product) => (
+//     <Card key={product._id} product={product} />
+//   ))
+// ) : (
+//   <p>No products to display.</p>
+// )}  
+//           </div>
+//         </div>
+//       </section>

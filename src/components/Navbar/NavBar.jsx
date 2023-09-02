@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Route, Routes,useNavigate } from "react-router-dom";
+import { Route, Routes,useNavigate,useLocation } from "react-router-dom";
 import './NavBar.css'
 import Body from "../Body";
 import Category from "../Category";
@@ -15,6 +15,7 @@ import OrderStatusUpdate from "../orders/OrderStatusUpdate";
 import LoginModal from "../Navigation/LoginModal";
 import Cookies from 'js-cookie';
 import SearchBar from "../Search/SearchBar";
+import MobileDownload from "../MobileDownload/MobileDownload";
 function NavBar() {
   const [categoryName, setCategoryName] = useState("");
   const navigate = useNavigate();
@@ -57,40 +58,21 @@ function NavBar() {
 const handleToggleClick = () => {
     setIsToggleOn(!isToggleOn);
   };
+
+  const location = useLocation();
+
+  // Check if the current pathname is the home page ("/")
+  const isHomePage = location.pathname === "/";
   return (
 
                 
           
   
       <div>
-        <section className="header">
-          <div className="container">
-            <div className="header-wrap">
-              <div className="left">
-                <div className="logo" >
-                  <a href="/">
-                    <img src="/images/logo.png" alt="logo" />
-                  </a>
-                </div>
-              </div>
-    
-     
-              <div className={`toggle ${isToggleOn ? 'on' : ''}`} id="toggle" onClick={handleToggleClick}>
-                  <span></span>
-               </div>
-              <div className={`right menu ${isToggleOn ? 'on d-flex align-items-center justify-content-center' : ''}`} id="menu">
-                  <Navigation isToggleOn={isToggleOn} />
-               </div>
-               <div className={`backdrop ${isToggleOn ? 'active' : ''}`} id="backdrop"></div>
-               
-              
-            </div>
-          </div>
-        </section>
+       {isHomePage && <MobileDownload />}
+       <Navigation />
 
-       
-
-        <Routes>
+        <Routes >
           <Route exact path="/" element={<Body categoryChoice={handleCategoryChoice} />} />
           <Route path="/category" element={<Category categoryChoice={handleCategoryChoice} />} />
           <Route path="/category/:categoryName" element={<Items category={categoryName} showAll={true} />} />
@@ -109,3 +91,29 @@ const handleToggleClick = () => {
 }
 
 export default NavBar;
+
+
+// <section className="header">
+// <div className="container">
+//   <div className="header-wrap">
+//     <div className="left">
+//       <div className="logo" >
+//         <a href="/">
+//           <img src="/images/logo.png" alt="logo" />
+//         </a>
+//       </div>
+//     </div>
+
+
+//     <div className={`toggle ${isToggleOn ? 'on' : ''}`} id="toggle" onClick={handleToggleClick}>
+//         <span></span>
+//      </div>
+//     <div className={`right menu ${isToggleOn ? 'on' : ''}`}  id="menu">
+//         <Navigation isToggleOn={isToggleOn} setIsToggleOpen={setIsToggleOn}/>
+//      </div>
+//      <div className={`backdrop ${isToggleOn ? 'active' : ''}`} id="backdrop"></div>
+     
+    
+//   </div>
+// </div>
+// </section>

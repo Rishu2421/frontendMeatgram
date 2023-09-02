@@ -2,9 +2,20 @@ import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import backendUrl from '../../../config';
 const AddProduct = () => {
+  const [categories, setCategories] = useState([]);
+  const [product, setProduct] = useState({
+    name: '',
+    price: '',
+    image: null,
+    quantityAndMrp: [],
+    numOfPieces: '',
+    description: '',
+    category: '',
+    isTopSelling: false,
+    discount:'',
+    isBoneless: false,
+  });
 
-  const [category,setCategory]=useState([]);
-  
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -13,25 +24,11 @@ const AddProduct = () => {
     try {
       const response = await fetch(`${backendUrl}/api/categories`);
       const data = await response.json();
-                                                                       
-      setCategory(data);
+      setCategories(data);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
   };
-  const [product, setProduct] = useState({
-    name: '',
-    price: '',
-    image: null,
-    quantity: '',
-    numOfPieces: '',
-    description: '',
-    mrp: '',
-    discount: '',
-    category: '',
-    isTopSelling: false,
-    isBoneless: false,
-  });
 
   const handleInputChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -41,11 +38,24 @@ const AddProduct = () => {
     setProduct({ ...product, image: e.target.files[0] });
   };
 
-  const handleQuantityChange = (e) => {
-    setProduct({ ...product, quantity: e.target.value });
+  const handleQuantityAndMrpChange = (e, index) => {
+    const updatedQuantityAndMrp = [...product.quantityAndMrp];
+    updatedQuantityAndMrp[index][e.target.name] = e.target.value;
+    setProduct({ ...product, quantityAndMrp: updatedQuantityAndMrp });
   };
+
+  const addQuantityAndMrpField = () => {
+    const updatedQuantityAndMrp = [...product.quantityAndMrp, { quantity: '', mrp: '' }];
+    setProduct({ ...product, quantityAndMrp: updatedQuantityAndMrp });
+  };
+
+  const removeQuantityAndMrpField = (index) => {
+    const updatedQuantityAndMrp = [...product.quantityAndMrp];
+    updatedQuantityAndMrp.splice(index, 1);
+    setProduct({ ...product, quantityAndMrp: updatedQuantityAndMrp });
+  };
+
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
     try {
       const token = localStorage.getItem('adminToken');
@@ -54,14 +64,14 @@ const AddProduct = () => {
       formData.append('name', product.name);
       formData.append('price', product.price);
       formData.append('image', product.image);
-      formData.append('quantity', product.quantity);
+      formData.append('quantityAndMrp', JSON.stringify(product.quantityAndMrp));
       formData.append('numOfPieces', product.numOfPieces);
       formData.append('description', product.description);
-      formData.append('mrp', product.mrp);
-      formData.append('discount', product.discount);
       formData.append('category', product.category);
       formData.append('isTopSelling', product.isTopSelling);
       formData.append('isBoneless', product.isBoneless);
+      formData.append('discount', product.discount);
+
       // Send the product data to the backend API
       const response = await axios.post(`${backendUrl}/api/admin/addproduct`, formData, {
         headers: {
@@ -76,12 +86,11 @@ const AddProduct = () => {
         name: '',
         price: '',
         image: null,
-        quantity: '',
+        quantityAndMrp: [],
         numOfPieces: '',
         description: '',
-        mrp: '',
-        discount: '',
         category: '',
+        discount:"",
         isTopSelling: false,
         isBoneless: false,
       });
@@ -89,6 +98,7 @@ const AddProduct = () => {
       console.error(error);
     }
   };
+
 
   return (
     <div className="container">
@@ -141,40 +151,46 @@ const AddProduct = () => {
           />
         </div>
 
-        <div className="mb-3">
-          <label className="form-label">Quantity</label>
-          <div className="form-check">
+       
+        {product.quantityAndMrp.map((item, index) => (
+          <div key={index} className="mb-3">
+            <label htmlFor={`quantity${index}`} className="form-label">
+              Quantity
+            </label>
             <input
-              className="form-check-input"
-              type="radio"
+              type="text"
               name="quantity"
-              value="0.5kg"
-              checked={product.quantity === '0.5kg'}
-              onChange={handleQuantityChange}
-              id="quantityHalf"
+              value={item.quantity}
+              onChange={(e) => handleQuantityAndMrpChange(e, index)}
+              className="form-control"
+              id={`quantity${index}`}
+              placeholder="Quantity"
               required
             />
-            <label className="form-check-label" htmlFor="quantityHalf">
-              0.5 kg
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="quantity"
-              value="1kg"
-              checked={product.quantity === '1kg'}
-              onChange={handleQuantityChange}
-              id="quantityOne"
-              required
-            />
-            <label className="form-check-label" htmlFor="quantityOne">
-              1 kg
-            </label>
-          </div>
-        </div>
 
+            <label htmlFor={`mrp${index}`} className="form-label">
+              MRP
+            </label>
+            <input
+              type="number"
+              name="mrp"
+              value={item.mrp}
+              onChange={(e) => handleQuantityAndMrpChange(e, index)}
+              className="form-control"
+              id={`mrp${index}`}
+              placeholder="MRP"
+              required
+            />
+
+            <button type="button" onClick={() => removeQuantityAndMrpField(index)}>
+              Remove
+            </button>
+          </div>
+        ))}
+
+        <button type="button" onClick={addQuantityAndMrpField}>
+          Add Quantity and MRP
+        </button>
         <div className="mb-3">
           <label htmlFor="numOfPieces" className="form-label">
             Number of Pieces
@@ -251,7 +267,7 @@ const AddProduct = () => {
     required
   >
     <option value="">Select a category</option>
-    {category.map((category, index) => (
+    {categories.map((category, index) => (
       <option key={index} value={category.name}>
         {category.name}
       </option>
@@ -298,3 +314,39 @@ const AddProduct = () => {
 };
 
 export default AddProduct;
+
+
+
+// <div className="mb-3">
+// <label className="form-label">Quantity</label>
+// <div className="form-check">
+//   <input
+//     className="form-check-input"
+//     type="radio"
+//     name="quantity"
+//     value="0.5kg"
+//     checked={product.quantity === '0.5kg'}
+//     onChange={handleQuantityChange}
+//     id="quantityHalf"
+//     required
+//   />
+//   <label className="form-check-label" htmlFor="quantityHalf">
+//     0.5 kg
+//   </label>
+// </div>
+// <div className="form-check">
+//   <input
+//     className="form-check-input"
+//     type="radio"
+//     name="quantity"
+//     value="1kg"
+//     checked={product.quantity === '1kg'}
+//     onChange={handleQuantityChange}
+//     id="quantityOne"
+//     required
+//   />
+//   <label className="form-check-label" htmlFor="quantityOne">
+//     1 kg
+//   </label>
+// </div>
+// </div>
