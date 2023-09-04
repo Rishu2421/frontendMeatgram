@@ -4,7 +4,7 @@ import React from 'react';
 function ScrollButton({ items }) {
   return (
     <div className="scroll-button">
-      {items.map((item, index) => (
+      {items && items.map((item, index) => (
         <a key={index} href={`#${item.id}`}>
           {item.label}
         </a>

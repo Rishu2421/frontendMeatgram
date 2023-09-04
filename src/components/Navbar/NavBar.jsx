@@ -18,7 +18,9 @@ import SearchBar from "../Search/SearchBar";
 import MobileDownload from "../MobileDownload/MobileDownload";
 import CategoryApp from "../inner_components_category/CategoryApp";
 function NavBar() {
-  const [categoryName, setCategoryName] = useState("");
+  const [categoryName, setCategoryName] = useState('');
+  
+  const [subCategory, setsubCategory] = useState("");
   const navigate = useNavigate();
   const [isToggleOn, setIsToggleOn] = useState(false); // Toggle state
 
@@ -48,8 +50,9 @@ function NavBar() {
 
   // const userId = localStorage.getItem('userId');
   const userId = Cookies.get('userId');
-  const handleCategoryChoice = (category) => {
+  const handleCategoryChoice = (category,subcategories) => {
     setCategoryName(category);
+    setsubCategory(subcategories);
     navigate(`/category/${categoryName}`);
   };
   
@@ -74,6 +77,9 @@ const handleToggleClick = () => {
         <Routes >
           <Route exact path="/" element={<Body categoryChoice={handleCategoryChoice} />} />
           <Route path="/category" element={<Category categoryChoice={handleCategoryChoice} />} />
+         
+          {/* <Route path="/category/:categoryName" element={ <Items showAll={true} category={categoryName} subCategoryies={subCategory} />} /> */}
+
           <Route path="/category/:categoryName" element={<CategoryApp categoryChoice={handleCategoryChoice} category={categoryName} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/products" element={<Product />} />

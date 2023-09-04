@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
 import backendUrl from '../../config';
+import ScrollButton from '../inner_components_category/ScrollButton';
 
-function Items({key, showAll, category, title, subtitleProps }) {
+function Items({key, showAll, category, title, subtitleProps,subCategoryies }) {
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState("");
 
+
   useEffect(() => {
     fetchProducts();
+    console.log(subCategoryies)
   }, [category]);
 
   const fetchProducts = async () => {
@@ -16,7 +19,7 @@ function Items({key, showAll, category, title, subtitleProps }) {
       let response;
       if (category) {
         response = await axios.get(`${backendUrl}/api/categories/${category}`);
-        console.log(response.data)
+     
 
         setCategoryName(category);
 
@@ -48,10 +51,14 @@ function Items({key, showAll, category, title, subtitleProps }) {
   };
 
   return (
+
+    <>
+    <ScrollButton items={subCategoryies} />
     <div className="menu bestsellers-container" id={`scroll${key}`}>
        <div className="heading">
         {title && <h1>{title}</h1>}
-        <h3>&mdash; {subtitleProps.toUpperCase()} &mdash;</h3>
+        <h3>&mdash; {subtitleProps && subtitleProps.toUpperCase()} &mdash;</h3>
+        
       </div>
    
         {renderProducts().map((product, index) => (
@@ -59,6 +66,7 @@ function Items({key, showAll, category, title, subtitleProps }) {
         ))}
     
     </div>
+    </>
   );
 }
 

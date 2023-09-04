@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import AdminDashboard from '../AdminControl/AdminDashboard';
-import ViewProducts from '../AdminControl/ViewProducts';
-import AddProduct from '../AdminControl/AddProduct';
-import AddCategory from '../AdminControl/AddCategory';
-import CategoryView from '../AdminControl/CategoryView';
+import ViewProducts from '../AdminControl/Product/ViewProducts';
+import AddProduct from '../AdminControl/Product/AddProduct';
+import AddCategory from '../AdminControl/Category/AddCategory';
+import CategoryView from '../AdminControl/Category/CategoryView';
 import './AdminPanel.css';
 import MyOrderPage from '../../orders/MyOrderPage';
 import BannerComponent from '../AdminControl/Banner/BannerComponent';

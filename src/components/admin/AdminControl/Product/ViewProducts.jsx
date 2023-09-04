@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Container, Row, Col } from 'react-bootstrap';
 import RemoveItem from './RemoveItem';
-import './control.css';
-import backendUrl from '../../../config';
+import '../control.css';
+import backendUrl from '../../../../config';
 const ViewProducts = () => {
   const [products, setProducts] = useState([]);
 

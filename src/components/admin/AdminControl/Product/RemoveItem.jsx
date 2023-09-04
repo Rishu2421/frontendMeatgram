@@ -1,5 +1,5 @@
 import React from 'react';
-import backendUrl from '../../../config';
+import backendUrl from '../../../../config';
 const RemoveItem = ({ itemId, onDelete }) => {
   const handleDelete = () => {
     // Send a request to the backend API to delete the item

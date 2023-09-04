@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 function Body({ categoryChoice }){
   const navigate=useNavigate();
-  const handleCategoryChoice = (categoryName) => {
-    categoryChoice(categoryName);
+  const handleCategoryChoice = (categoryName,subcategories) => {
+    categoryChoice(categoryName,subcategories);
     navigate(`/category/${categoryName}`);
   };
     return (

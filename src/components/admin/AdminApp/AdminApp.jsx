@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate} from 'react-router-dom';
+import Cookies from 'js-cookie';
 import AdminPanel from '../AdminPanel/AdminPanel';
 import AdminLogin from '../AdminPanel/AdminLogin';
 
@@ -24,12 +25,14 @@ const AdminApp = () => {
   };
 
   const handleLogout = () => {
-    // Clear the admin token from local storage and update the authentication state
+    // Clear the admin token from both local storage and the cookie
     localStorage.removeItem('adminToken');
+    Cookies.remove('adminToken'); // Delete the cookie
     setIsAuthenticated(false);
     // Redirect to the login page after logout
     navigate('/admin/login');
   };
+  
 
   return (
     <div>

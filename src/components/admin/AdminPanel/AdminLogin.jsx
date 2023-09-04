@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import './AdminLogin.css'
 import backendUrl from '../../../config';
 const AdminLogin = ({ onLoginSuccess }) => {
@@ -20,16 +21,16 @@ const AdminLogin = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${backendUrl}api/admin/auth`, credentials);
+      const response = await axios.post(`${backendUrl}/api/admin/auth`, credentials);
       const token = response.data.token;
 
       // Store the token in local storage
       localStorage.setItem('adminToken', token);
-
+      Cookies.set('adminToken', token);
       // Update the authentication status
       onLoginSuccess();
       // Redirect to admin panel after successful login
-      navigate('/admin');
+      navigate('/admin/');
     } catch (error) {
       console.error(error);
     }

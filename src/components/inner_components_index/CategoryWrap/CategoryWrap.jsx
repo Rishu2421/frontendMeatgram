@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './CategoryWrap.css'
 import backendUrl from "../../../config";
+import { data } from "jquery";
 
 function CategoryWrap({ onCategoryChoice }) {
   const [categories, setCategories] = useState([]);
@@ -15,8 +16,8 @@ function CategoryWrap({ onCategoryChoice }) {
   }, []);
 
   const navigate = useNavigate();
-  const handleCategoryClick = (categoryName) => {
-    onCategoryChoice(categoryName);
+  const handleCategoryClick = (categoryName,subcategories) => {
+    onCategoryChoice(categoryName,subcategories);
     navigate(`/category/${categoryName}`);
   };
 
@@ -26,7 +27,7 @@ function CategoryWrap({ onCategoryChoice }) {
         <Link
           to={`/category/${category.name.toLowerCase()}`}
           key={category._id} // You should use a unique key for each item in the list
-          onClick={() => handleCategoryClick(category.name.toLowerCase())}
+          onClick={() => handleCategoryClick(category.name.toLowerCase(),category.subcategories)}
         >
           <div className="circ">
             <div className="crcl">

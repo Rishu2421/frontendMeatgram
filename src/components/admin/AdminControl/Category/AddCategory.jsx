@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import backendUrl from '../../../config';
+import backendUrl from '../../../../config';
+
 const AddCategory = () => {
   const [name, setName] = useState('');
   const [image, setImage] = useState(null);
+  const [subcategories, setSubcategories] = useState([]);
+  const [newSubcategory, setNewSubcategory] = useState('');
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -13,22 +16,41 @@ const AddCategory = () => {
     setImage(e.target.files[0]);
   };
 
+  const handleSubcategoryChange = (e) => {
+    setNewSubcategory(e.target.value);
+  };
+
+  const addSubcategory = () => {
+    if (newSubcategory.trim() !== '') {
+      setSubcategories([...subcategories, newSubcategory]);
+      setNewSubcategory('');
+    }
+  };
+
+  const removeSubcategory = (index) => {
+    const updatedSubcategories = subcategories.filter((_, i) => i !== index);
+    setSubcategories(updatedSubcategories);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append('name', name.toLowerCase());
     formData.append('image', image);
-    
+
+    // Append subcategories to the form data
+    subcategories.forEach((subcategory) => {
+      formData.append('subcategories', subcategory);
+    });
+
     try {
-      
-    const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('adminToken');
       const requestOptions = {
         method: 'POST',
         body: formData,
         headers: {
           Authorization: `Bearer ${token}`,
-        
         },
       };
       const response = await fetch(`${backendUrl}/api/admin/add-category`, requestOptions);
@@ -38,6 +60,8 @@ const AddCategory = () => {
         // Reset form fields
         setName('');
         setImage(null);
+        setSubcategories([]);
+        setNewSubcategory('');
         alert('Category added successfully!');
       } else {
         // Error occurred while adding the category
@@ -72,6 +96,36 @@ const AddCategory = () => {
             onChange={handleImageChange}
             required
           />
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Subcategories</Form.Label>
+          <div className="d-flex align-items-center">
+            <Form.Control
+              type="text"
+              placeholder="Enter subcategory"
+              value={newSubcategory}
+              onChange={handleSubcategoryChange}
+            />
+            <Button variant="secondary" onClick={addSubcategory}>
+              Add
+            </Button>
+          </div>
+          <ul>
+            {subcategories.map((subcategory, index) => (
+              <li key={index}>
+                {subcategory}
+                <Button
+                  variant="danger"
+                  size="sm"
+                  className="ms-2"
+                  onClick={() => removeSubcategory(index)}
+                >
+                  Remove
+                </Button>
+              </li>
+            ))}
+          </ul>
         </Form.Group>
 
         <Button variant="primary" type="submit">

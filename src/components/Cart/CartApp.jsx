@@ -8,9 +8,7 @@ import Sourcing from "../inner_component_product/Sourcing/Sourcing";
 function CartApp(){
 return (
     <div>
-
         <CartBody />
-      
     </div>
 
 );

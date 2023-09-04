@@ -15,7 +15,7 @@ function Product() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const userId = Cookies.get('userId');
-  console.log(userId)
+ 
   useEffect(() => {
     // Extract the productId from the URL
     const searchParams = new URLSearchParams(location.search);
@@ -34,6 +34,7 @@ function Product() {
       // console.log("logging in product.jsx"+data)
       // Set the fetched product data to the state
       setProduct(data[0]);
+      console.log(response.data)
       setLoading(false);
     } catch (error) {
       console.log("Error fetching product:", error);
@@ -46,15 +47,15 @@ function Product() {
   return (
     <div>
       {/* <Banner /> */}
-      <RedBackgroundWrap />
+      {/* <RedBackgroundWrap /> */}
       {loading ? (
         <div>Loading...</div>
       ) : (
         <>
-          <ProductWrap key={product._id} product={product} userId={userId}/>
-          <Sourcing />
-          <TheWay />
-          <Items showAll={false} />
+          <ProductWrap  product={product} userId={userId}/>
+          {/* <Sourcing /> */}
+          {/* <TheWay /> */}
+          {/* <Items showAll={false} /> */}
         </>
       )}
     </div>
