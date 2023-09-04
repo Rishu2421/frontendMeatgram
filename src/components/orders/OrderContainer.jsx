@@ -35,7 +35,7 @@ const OrderContainer = ({ orders, isAdmin }) => {
               products={order.items.map((item) => ({
                 imageUrl: `${backendUrl}${item.item.image}`,
                 productName: item.item.name,
-                price: `Rs.${item.item.price}`,
+                price: `Rs.${item.item.quantityAndMrp[0].mrp}`,
                 status: order.status,
                 productId: `${item.item._id}`
               }))}

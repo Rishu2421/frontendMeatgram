@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import Items from './product/Items'
 import "../styles/style.css";
 import backendUrl from "../config";
+import CategoryWrap from "./inner_components_index/CategoryWrap/CategoryWrap";
 
 
 function Product() {
@@ -46,15 +47,16 @@ function Product() {
   return (
     <div>
       {/* <Banner /> */}
-      <RedBackgroundWrap />
+      {/* <RedBackgroundWrap /> */}
       {loading ? (
         <div>Loading...</div>
       ) : (
         <>
-          <ProductWrap key={product._id} product={product} userId={userId}/>
-          <Sourcing />
+           <CategoryWrap />
+          <ProductWrap product={product} userId={userId}/>
+          {/* <Sourcing />
           <TheWay />
-          <Items showAll={false} />
+          <Items showAll={false} /> */}
         </>
       )}
     </div>

@@ -5,13 +5,13 @@ import CheckoutPage from "../orders/CheckoutPage/CheckoutPage";
 import {  Form } from 'react-bootstrap';
 import AreaSelection from "../orders/AreaSelection/AreaSelection";
 
-function CartBody(){
+function CartBody({selectedItemPrice}){
     const [showCheckout, setShowCheckout] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [name, setName] = useState('');
     const [mobileNumber, setMobileNumber] = useState('');
     const [address, setAddress] = useState('');
-    const [selectedCityStore, setSelectedCityStore] = useState("");
+    const [selectedCityStore, setSelectedCityStore] = useState("Areera Colony");
 
 
     useEffect(() => {
@@ -31,6 +31,7 @@ function CartBody(){
             const data = await response.json();
             
             setCartItems(data.cartItems);
+            console.log(cartItems)
     
           } else {
             console.log('Failed to fetch cart items');
@@ -75,7 +76,7 @@ function CartBody(){
 
       const calculateTotalValue = () => {
         
-        return cartItems.reduce((total, item) => total + item.quantity * item.item.price, 0);
+        return cartItems.reduce((total, item) => total + item.quantity * item.item.quantityAndMrp[0].mrp, 0);
      };
 
    const calculateTotalItem=()=>{
@@ -107,30 +108,36 @@ return (
             <thead>
               <tr>
                 <th>Product</th>
-                <th>Quantity</th>
+                <th>Number Of Item</th>
                 <th>Price</th>
                 <th>Subtotal</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-            {cartItems.map((item, index) => (
-  <tr key={`${item.item&&item.item._id}-${index}`}>
-    <td>{item.item && item.item.name}</td>
-    <td>{item && item.quantity}</td>
-    <td>{item.item && item.item.price}</td>
-    {/* <td>{item.item && item.quantity * item.item && item.item.price}</td> */}
-    <td>
-      <button className="btn btn-danger btn-responsive" onClick={() => removeItemFromCart(item.item._id)}>Remove</button>
-    </td>
+  {cartItems.map((item, index) => (
+    <tr key={`${item.item&&item.item._id}-${index}`}>
+      <td>{item.item && item.item.name}</td>
+      <td>{item && item.quantity? item.quantity : 0} </td>
+<td>{item.item && item.item.quantityAndMrp[0].mrp ? parseFloat(item.item.quantityAndMrp[0].mrp) : 0}</td>
+<td>{item.item && item.item.quantityAndMrp[0].mrp && item.quantity ? parseFloat(item.item.quantityAndMrp[0].mrp) * item.quantity : 0}</td>
+
+      <td>
+        <button
+          className="btn btn-danger btn-responsive"
+          onClick={() => removeItemFromCart(item.item._id)}
+        >
+          Remove
+        </button>
+      </td>
+    </tr>
+  ))}
+  <tr>
+    <td colSpan="3"></td>
+    <th>Total:</th>
+    <td>Rs.{calculateTotalValue()}</td>
   </tr>
-))}
-              <tr>
-              <td colSpan="3"></td>
-              <th>Total:</th>
-              <td>Rs.{calculateTotalValue()}</td>
-              </tr>
-            </tbody>
+</tbody>
                 </table>
           </div>
 
@@ -175,10 +182,10 @@ return (
       />
     </Form.Group>
 
-    <Form.Group controlId="storeLocation" className="mt-3">
+    {/* <Form.Group controlId="storeLocation" className="mt-3">
       <Form.Label className="me-4">Select Store:</Form.Label>
       <AreaSelection setSelectedCityStore={setSelectedCityStore} />
-    </Form.Group>
+    </Form.Group> */}
 
     <div className="d-grid gap-2 mt-3">
       <button

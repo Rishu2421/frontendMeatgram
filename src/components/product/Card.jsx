@@ -15,14 +15,14 @@ function Card({ product }) {
     <div className="food-items">
       <img src={`${backendUrl}${image}`} alt={name} />
       <div className="details">
-        <div className="details-sub">
+        <div className="title-description">
           <h5>{name}</h5>
+          <p className='d-inline'>{description}</p>
         </div>
-        <p className='d-inline'>{description}</p>
         <form className="quantity-form">
           {quantityAndMrp &&
             quantityAndMrp.map((detail, index) => (
-              <div key={index}>
+              <div className='container' key={index}>
                 <input
                   type="radio"
                   name={`quantity-${_id}`} // Use a unique name attribute based on the product _id
@@ -34,17 +34,19 @@ function Card({ product }) {
                 <label htmlFor={`quantity-${index}-${_id}`}>
                   {detail.quantity} Qty. <span>Rs.{detail.mrp} Pcs.{numOfPieces}</span>
                 </label>
-                <br />
               </div>
             ))}
         </form>
-      <AddToCartButton product={product} />
+        <AddToCartButton product={product} />
       </div>
     </div>
   );
 }
 
 export default Card;
+
+
+
 
 
 // <div className="box">

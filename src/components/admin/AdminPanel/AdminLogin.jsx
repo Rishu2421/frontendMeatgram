@@ -20,7 +20,7 @@ const AdminLogin = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${backendUrl}api/admin/auth`, credentials);
+      const response = await axios.post(`${backendUrl}/api/admin/auth`, credentials);
       const token = response.data.token;
 
       // Store the token in local storage

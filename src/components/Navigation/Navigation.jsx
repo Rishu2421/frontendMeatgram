@@ -87,11 +87,11 @@ console.log(token)
                 <i className="fa fa-user" aria-hidden="true"></i>
               </a>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-              <li>
+              {/* <li>
                   <a className="dropdown-item text-dark" href="/profile">
                     My Profile
                   </a>
-                </li>
+                </li> */}
                 <li>
                   <a className="dropdown-item text-dark" href="/user/myorder">
                     My Orders

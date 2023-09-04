@@ -119,7 +119,7 @@ const SearchBar = ({toggleMenu}) => {
  
     <div class="input-box">
     <i class="uil uil-search"></i>
-    <input type="text" placeholder="Search here..." />
+     <input type="text" placeholder="Search here..." />
     <button class="button">Search</button>
   </div>
     

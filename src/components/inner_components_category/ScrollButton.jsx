@@ -1,13 +1,14 @@
-// ScrollButton.js
-import React from 'react';
+import React from "react";
 
 function ScrollButton({ items }) {
+  if (!items || items.length === 0) {
+    return null; // If items is undefined or empty, return null or handle accordingly
+  }
+
   return (
-    <div className="scroll-button">
+    <div className="scroll-buttons">
       {items.map((item, index) => (
-        <a key={index} href={`#${item.id}`}>
-          {item.label}
-        </a>
+        <button key={index}>{item}</button>
       ))}
     </div>
   );
