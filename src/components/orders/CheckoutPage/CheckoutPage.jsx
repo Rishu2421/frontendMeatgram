@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import backendUrl from '../../../config';
 
-const CheckoutPage = ({name,mobileNumber,address, amount, products,numberOfItem,storeLocation }) => {
+const CheckoutPage = ({name,mobileNumber,address, amount, products,numberOfItem,storeLocation,pincode }) => {
 
   const  userId= Cookies.get('userId');
   const [paymentMethod, setPaymentMethod] = useState('cashOnDelivery');
@@ -72,7 +72,7 @@ const CheckoutPage = ({name,mobileNumber,address, amount, products,numberOfItem,
             id: item.item._id,
             quantity: item.quantity,
           })),
-          storeLocation
+          pincode
         },
         theme: {
           color: '#111212',
@@ -97,7 +97,7 @@ const CheckoutPage = ({name,mobileNumber,address, amount, products,numberOfItem,
         address,
         userId,
         amount,
-        storeLocation,
+        pincode,
         razorpay_order_id,
         razorpay_payment_id,
         razorpay_signature,
@@ -127,7 +127,7 @@ const CheckoutPage = ({name,mobileNumber,address, amount, products,numberOfItem,
         address,
         userId,
         amount,
-        storeLocation,
+        pincode,
       };
       console.log(data)
       const response = await axios.post(`${backendUrl}/api/payment/cashondelivery`, data);

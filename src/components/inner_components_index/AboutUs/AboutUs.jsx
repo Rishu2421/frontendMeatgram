@@ -22,7 +22,7 @@ function AboutUs() {
         </div>
       </div>
 
-      <a href="#" class="about_btn">Order Now</a>
+      <a href="/product/all-product" class="about_btn">Order Now</a>
     </div>
 
   );

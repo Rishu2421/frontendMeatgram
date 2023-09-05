@@ -7,8 +7,8 @@ import backendUrl from '../../../config';
 function ProductWrap({ product,userId }) {
 
   const [count, setCount] = useState(1);
-  const { name, image, quantity, numOfPieces, description, mrp,discount,isBoneless } = product;
-  const discountedPrice = mrp - (mrp * (discount / 100));
+  const { name, image, quantityAndMrp, description,isBoneless } = product;
+  const [selectedDetailIndex, setSelectedDetailIndex] = useState(0); // Initialize with the first detail
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -20,35 +20,11 @@ function ProductWrap({ product,userId }) {
     }
   };
 
-    const addToCart = async () => {
-    try {
-      const token = localStorage.getItem('token');
-
-      const response = await fetch(`${backendUrl}/api/cart/addItem`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userId, // Pass the userId prop
-          itemId: product._id,
-          quantity: count,
-        }),
-      });
-
-      if (response.ok) {
-        // Item successfully added to the cart
-        // Perform any additional actions or show a success message
-        console.log('Item added to the cart');
-      } else {
-        // Handle error response
-        console.log('Failed to add item to the cart');
-      }
-    } catch (error) {
-      console.log('Error adding item to the cart:', error);
-    }
+  
+  const handleQuantityAndMrpSelection = (index) => {
+    setSelectedDetailIndex(index);
   };
+  
 
 
   return (
@@ -66,79 +42,86 @@ function ProductWrap({ product,userId }) {
           </div>
           <div className="col-md-6 mt-10">
             <div className="text-wrap">
-              <h3>{name} - Mini Bites</h3>
+              <h3>{name}</h3>
               <div className="list-info">
                 <ul>
-                  <li>
-                    {isBoneless&&'Boneless'}
-                  </li>
-                  <li>
-                    |
-                  </li>
+                 
+                    {isBoneless&&
+                      <li>
+                    'Boneless'
+                    </li>
+                    }
+                 
                   <li>
                     Bite size pieces
                   </li>
                 </ul>
               </div>
+           
               <p>
-                Keep your chopping board aside, we've got the perfect cut of
-                chicken for Chicken Popcorn, Garlic Chicken Bites, Chicken
-                Nuggets and more!
-              </p>
-              <p>
-                Licious chickens are raised on biosecure farms and are
-                antibiotic-residue free. They are cut and cleaned by experts so
-                you can cook them straight off the pack. Our chicken is stored
-                in temperature-controlled conditions, between 0-4?, to ensure
-                that it is chilled, never frozen. Order Licious Chicken Mini
-                Bites (Boneless) online and get it home delivered.
+               {description}
               </p>
              
-              {/* <div className="box-wrap">
-                <div className="first-div">
-                  <div className="list1">
-                    <a href="#">
-                      <img src="/images/Rectangle 89.png" alt="Pieces" />
-                      No. of Pieces {numOfPieces}
-                    </a>
-                  </div>
-                  <div className="list1">
-                    <a href="#">
-                      <img src="/images/Rectangle 89.png" alt="Serves" />
-                      Serves 4
-                    </a>
-                  </div>
-                </div>
-                <div className="second-div">
-                  <div className="list">
-                    <a href="#">
-                      <img src="/images/Rectangle 91.png" alt="Weight" />
-                      {quantity}
-                    </a>
-                  </div>
-                </div>
-              </div> */}
-              <BoxWrap numOfPieces={numOfPieces} quantity={quantity} />
+              
+              <div className="quantity-radio-group">
+  {quantityAndMrp.map((detail, index) => (
+    <label key={index}>
+      <input
+        type="radio"
+        name="quantityAndMrp"
+        value={index}
+        checked={selectedDetailIndex === index}
+        onChange={() => handleQuantityAndMrpSelection(index)}
+      />
+    
+  {parseFloat(detail.quantity) > 0 && `${detail.quantity} Qty. `}
+    Rs.{detail.mrp}
+   {detail.numOfPieces > 0 && ` Pcs.${detail.numOfPieces}`}
+    </label>
+  ))}
+</div>
+
+                <BoxWrap
+                  key={selectedDetailIndex}
+                  numOfPieces={quantityAndMrp[selectedDetailIndex].numOfPieces}
+                  quantity={quantityAndMrp[selectedDetailIndex].quantity}
+                />
+              
+              
                         
               <div className="cart-menu">
-                <div className="list">
-                  <ul>
-                    <li className="text-danger fw-bold">
-                        <i className="fa fa-inr"  aria-hidden="true"></i>{discountedPrice}
-                    </li>
-                    <li>
-                        <del>MRP {mrp}</del>
-                    </li>
-                    <li>
-                      {discount} % OFF
-                    </li>
-                    <li><button><span onClick={handleDecrement}>-</span>{count}<span onClick={handleIncrement}>+</span></button></li>
-                         
-                  </ul>
-                </div>
-              </div>
-              <div className="menu-button">
-              <AddToCartButton product={product}  />
+  <div className="list">
+    <div className="btn-group" role="group">
+      <button
+        type="button"
+        className="btn btn-secondary"
+        onClick={handleDecrement}
+      >
+        -
+      </button>
+      <span className="btn btn-light quantity">{count}</span>
+      <button
+        type="button"
+        className="btn btn-secondary"
+        onClick={handleIncrement}
+      >
+        +
+      </button>
+    </div>
+  </div>
+</div>
+
+              <div className="menu-button details">
+              <AddToCartButton 
+              product={product} 
+              quantity={count} 
+              selectedQuantityAndMrp={{
+
+                  quantity: quantityAndMrp[selectedDetailIndex].quantity, 
+                  mrp: quantityAndMrp[selectedDetailIndex].mrp,
+                   numOfPieces: quantityAndMrp[selectedDetailIndex].numOfPieces 
+                
+                   }}/>
                     
               </div>
             </div>

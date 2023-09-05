@@ -3,6 +3,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* background-color: black;
+    color:white; */
 }
 
 
@@ -1045,10 +1047,29 @@ img{
   
   
   .search{
-    justify-content: center;
+    justify-content: start;
+  }
+  .search .logo{
+    margin-left: 0.5rem;
+  }
+
+  .search .search-container{
+    max-width: 13rem;
+    height: 2rem;
+
   }
   
+  .search .search-container .search-button{
+    max-width: 4rem;
+    height: 2rem;
+    color: transparent; /* Hide the text by making it transparent */
+    font-size: 0;
+  }
   
+  .search .search-container .search-button i {
+    color: white;
+    font-size: 16px; /* Adjust the icon size as needed */
+  }
   img{
     width: 75px;
     height: 75px;

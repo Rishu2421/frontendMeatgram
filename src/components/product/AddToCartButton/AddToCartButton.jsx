@@ -64,7 +64,7 @@ const AddToCartButton = ({ product,quantity ,selectedQuantityAndMrp}) => {
 
   return (
     <>
-      <button className="add-to-cart-btn" onClick={addToCart} disabled={isAddingToCart}>
+      <button className="add-to-cart-btn" style={{backgroundColor:"#BA0001"}} onClick={addToCart} disabled={isAddingToCart}>
         {isAddingToCart ? 'Adding...' : 'Add to Cart'}
       </button>
       {isItemAdded && (

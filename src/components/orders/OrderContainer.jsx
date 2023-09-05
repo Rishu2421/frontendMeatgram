@@ -42,7 +42,7 @@ const OrderContainer = ({ orders, isAdmin }) => {
             />
             {isAdmin && (
               <div>
-              <div>Store selected : {order.storeLocation}</div>
+              <div>Pincode {order.pincode}</div>
               <div className="mt-2">
                 <p>Status: {order.status}</p>
                 <select

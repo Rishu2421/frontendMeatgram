@@ -7,6 +7,7 @@ import Card from "../product/Card";
 
 function CategoryApp() {
   const navigate = useNavigate();
+  console.log("Hello");
   const location = useLocation();
   const [category, setCategory] = useState("");
   const [subCategories, setSubCategories] = useState([]);
@@ -14,7 +15,7 @@ function CategoryApp() {
 
   useEffect(() => {
     const pathnameParts = location.pathname.split("/");
-    const categoryName = pathnameParts[pathnameParts.length - 1];
+const categoryName = decodeURIComponent(pathnameParts[pathnameParts.length - 1]);
 
     if (categoryName) {
       setCategory(categoryName);
@@ -77,7 +78,9 @@ function CategoryApp() {
       subcategorySection.scrollIntoView({ behavior: "smooth" });
     }
   };
-
+function capitalizeFirstLetter(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
   return (
     <div>
       <CategoryWrap onCategoryChoice={handleCategoryChoice} />
@@ -92,7 +95,7 @@ function CategoryApp() {
             key={subcategory}
             onClick={() => handleScrollToSubcategory(subcategory)}
           >
-            {subcategory}
+            {subcategory.split(' ').map(capitalizeFirstLetter).join(' ')}
           </button>
         ))}
       </div>

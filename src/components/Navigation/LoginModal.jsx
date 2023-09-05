@@ -157,7 +157,7 @@ const handleLoginWithEmail = () => {
                 <input
                   type="email"
                   name="email"
-                  className="form-control"
+                  className="form-control text-dark focus border-dark"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -167,7 +167,7 @@ const handleLoginWithEmail = () => {
                 <label>Password</label>
                 <input
                   type="password"
-                  className="form-control"
+                  className="form-control text-dark focus border-dark"
                   name="password"
                   placeholder="Enter your password"
                   value={password}

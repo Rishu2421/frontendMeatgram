@@ -56,8 +56,9 @@ function Items({key, showAll, category, title, subtitleProps,subCategoryies }) {
     <ScrollButton items={subCategoryies} />
     <div className="menu bestsellers-container" id={`scroll${key}`}>
        <div className="heading">
-        {title && <h1>{title}</h1>}
-        <h3>&mdash; {subtitleProps && subtitleProps.toUpperCase()} &mdash;</h3>
+      <h1> <strong>All Products </strong></h1>
+        {/* {title && <h1>{title}</h1>} */}
+        {/* <h3>&mdash; {subtitleProps && subtitleProps.toUpperCase()} &mdash;</h3> */}
         
       </div>
    

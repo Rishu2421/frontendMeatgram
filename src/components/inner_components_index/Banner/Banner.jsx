@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import 'bootstrap/dist/js/bootstrap';
 import axios from "axios";
 import backendUrl from "../../../config";
 import './Banner.css'; // Import your custom styles for the banner if needed
+
 function Banner() {
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -23,22 +21,6 @@ function Banner() {
     }
   };
 
-  const indicatorStyles = {
-    backgroundColor: "#bbb",
-    border: "none",
-    width: "12px",
-    height: "12px",
-    
-    borderRadius: "50%",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease-in-out",
-  };
-
-  const selectedIndicatorStyles = {
-    ...indicatorStyles,
-    backgroundColor: "#333",
-  };
-
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -50,44 +32,40 @@ function Banner() {
   }, [images.length]);
 
   return (
-    <div id="homepage-slider" class="st-slider">
+    <div id="homepage-slider" className="st-slider">
+      <input type="radio" className="cs_anchor radio" name="slider" id="slide1"/>
+      <input type="radio" className="cs_anchor radio" name="slider" id="slide2"/>
+      <input type="radio" className="cs_anchor radio" name="slider" id="slide3"/>
+      <input type="radio" className="cs_anchor radio" name="slider" id="play1" checked=""/>
 
-    <input type="radio" class="cs_anchor radio" name="slider" id="slide1"/>
-    <input type="radio" class="cs_anchor radio" name="slider" id="slide2"/>
-    <input type="radio" class="cs_anchor radio" name="slider" id="slide3"/>
-    <input type="radio" class="cs_anchor radio" name="slider" id="play1" checked=""/>
+      <div className="images">
+        <div className="images-inner">
+          {images.map((image, index) => (
+            <div className={`image-slide`} key={index}>
+              <img src={`${backendUrl}${image.image}`} alt={`Banner ${index + 1}`} className="image bg-yellow" />
+            </div>
+          ))}
+        </div>
+      </div>
 
-    <div class="images">
-       <div class="images-inner">
-        <div class="image-slide">
-            <img src="https://i.ytimg.com/vi/rYKgKfvpuus/maxresdefault.jpg" alt="" class="image bg-yellow" />
-        </div>
-        <div class="image-slide">
-          <img src="https://i.ytimg.com/vi/rYKgKfvpuus/maxresdefault.jpg" alt="" class="image bg-yellow" />
-        </div>
-        <div class="image-slide">
-          <img src="https://i.ytimg.com/vi/rYKgKfvpuus/maxresdefault.jpg" alt="" class="image bg-yellow" />
+      <div className="labels">
+        {images.map((_, index) => (
+          <label htmlFor={`slide${index + 1}`} className="label" key={index}>
+            text slide {index + 1}
+          </label>
+        ))}
+
+        <div className="fake-radio">
+          {images.map((_, index) => (
+            <label htmlFor={`slide${index + 1}`} className="radio-btn" key={index}></label>
+          ))}
         </div>
       </div>
     </div>
-  
-    <div class="labels">
-        <label for="slide1" class="label">text slide 1</label>
-        <label for="slide2" class="label">text slide 2</label>
-        <label for="slide3" class="label">text slide 3</label>
-      
-        <div class="fake-radio">
-          <label for="slide1" class="radio-btn"></label>
-          <label for="slide2" class="radio-btn"></label>
-          <label for="slide3" class="radio-btn"></label>
-        </div>
-    </div>
-</div>
   );
 }
 
 export default Banner;
-
 
 
 // {/* <section className="banner">

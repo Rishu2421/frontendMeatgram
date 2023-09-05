@@ -2,17 +2,21 @@ import React,{useState,useEffect} from "react";
 import Cookies from 'js-cookie';
 import backendUrl from "../../config";
 import CheckoutPage from "../orders/CheckoutPage/CheckoutPage";
-import {  Form } from 'react-bootstrap';
+import {  Form,Alert } from 'react-bootstrap';
 import AreaSelection from "../orders/AreaSelection/AreaSelection";
 
 function CartBody({selectedItemPrice}){
+
     const [showCheckout, setShowCheckout] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [name, setName] = useState('');
     const [mobileNumber, setMobileNumber] = useState('');
     const [address, setAddress] = useState('');
     const [selectedCityStore, setSelectedCityStore] = useState("Areera Colony");
-
+    const [pincode, setPincode] = useState('');
+  const [isBhopalPincode, setIsBhopalPincode] = useState(false);
+  const [isButtonLocked, setIsButtonLocked] = useState(false);
+  const [showPincodeAlert, setShowPincodeAlert] = useState(false);  
 
     useEffect(() => {
         fetchCartItems();
@@ -76,16 +80,41 @@ function CartBody({selectedItemPrice}){
 
       const calculateTotalValue = () => {
         
-        return cartItems.reduce((total, item) => total + item.quantity * item.item.quantityAndMrp[0].mrp, 0);
+        return cartItems.reduce((total, item) => total + item.quantity * item.selectedQuantityAndMrp.mrp, 0);
      };
 
    const calculateTotalItem=()=>{
     return cartItems.reduce((total, item) => total + item.quantity, 0);
     }
+
+    const handlePincodeChange = (e) => {
+      
+      const enteredPincode = e.target.value;
+      setPincode(enteredPincode);
+    };
+    const handleProceedToCheckout = () => {
+      if (!pincode) {
+        setShowPincodeAlert(true); // Show the pincode alert
+        return;
+      }
+    
+      // Replace this with your valid Bhopal pincodes
+    const validBhopalPincodes = ["462001", "462002", "462003", "462004", "462005", "462006", "462007", "462008", "462009", "462010", "462011", "462012", "462013", "462014", "462015", "462016", "462017", "462018", "462019", "462020", "462021", "462022", "462023", "462024", "462025", "462026", "462027", "462028", "462029", "462030", "462031", "462032", "462033", "462034", "462035", "462036", "462037", "462038", "462039", "462040", "462041", "462042", "462043", "462044", "462045", "462046", "462047", "462048", "462049", "462050"];
+
+      const isPincodeValid = validBhopalPincodes.includes(pincode);
+    
+      if (!isPincodeValid) {
+        setShowPincodeAlert(true);
+      } else {
+        setIsBhopalPincode(true);
+        setShowPincodeAlert(false); // Hide the pincode alert when it's valid
+        setShowCheckout(true);
+      }
+    };
 return (
     <>
 {showCheckout ? (
-      <CheckoutPage name={name} mobileNumber={mobileNumber} address={address} amount={calculateTotalValue()} storeLocation={selectedCityStore} numberOfItem={calculateTotalItem()} products={cartItems}/>
+      <CheckoutPage name={name} mobileNumber={mobileNumber} address={address} amount={calculateTotalValue()} storeLocation={selectedCityStore} pincode={pincode} numberOfItem={calculateTotalItem()} products={cartItems}/>
     ) : (
     <div>
      
@@ -108,7 +137,7 @@ return (
             <thead>
               <tr>
                 <th>Product</th>
-                <th>Weight</th>
+                {/* <th>Weight</th> */}
                 <th>Number Of Item</th>
                 <th>Price</th>
                 <th>Subtotal</th>
@@ -119,10 +148,10 @@ return (
             {cartItems.map((item, index) => (
   <tr key={`${item.item && item.item._id}-${index}`}>
     <td>{item.item && item.item.name}</td>
-    <td>{item.item && item.item.quantityAndMrp[0] && item.item.quantityAndMrp[0].quantity ? item.item.quantityAndMrp[0].quantity : "0"}</td>
+    {/* <td>{item.item && item.item.quantityAndMrp[0] && item.item.quantityAndMrp[0].quantity ? item.item.quantityAndMrp[0].quantity : "0"}</td> */}
     <td>{item && item.quantity ? item.quantity : 0}</td>
-    <td>{item.item && item.item.quantityAndMrp[0] && item.item.quantityAndMrp[0].mrp ? parseFloat(item.item.quantityAndMrp[0].mrp) : 0}</td>
-    <td>{item.item && item.item.quantityAndMrp[0] && item.item.quantityAndMrp[0].mrp && item.quantity ? parseFloat(item.item.quantityAndMrp[0].mrp) * item.quantity : 0}</td>
+    <td>{item.item && item.selectedQuantityAndMrp && item.selectedQuantityAndMrp.mrp ? parseFloat(item.selectedQuantityAndMrp.mrp) : 0}</td>
+    <td>{item.item &&item.selectedQuantityAndMrp && item.selectedQuantityAndMrp.mrp && item.quantity ? parseFloat(item.selectedQuantityAndMrp.mrp) * item.quantity : 0}</td>
     <td>
       <button
         className="btn btn-danger btn-responsive"
@@ -147,8 +176,8 @@ return (
         </div>
     </div>
 
-    <div className="col-md-4 mt-3">
-  <div className="card p-4">
+    <div className="col-md-4">
+  <div className="card p-4 mb-2">
     <h2 className="mb-4">Enter Your Details</h2>
     <Form.Group controlId="formName" className="mt-3">
       <Form.Label>Name: </Form.Label>
@@ -183,20 +212,36 @@ return (
         rows={4}
       />
     </Form.Group>
-
+       
     {/* <Form.Group controlId="storeLocation" className="mt-3">
       <Form.Label className="me-4">Select Store:</Form.Label>
       <AreaSelection setSelectedCityStore={setSelectedCityStore} />
     </Form.Group> */}
+    <Form.Group controlId="formPincode" className="mt-3">
+            <Form.Label>Pincode: </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter your pincode"
+              value={pincode}
+              onChange={handlePincodeChange}
+              required
+            />
+          </Form.Group>
+          {showPincodeAlert && (
+            <Alert variant="danger" onClose={() => setShowPincodeAlert(false)} dismissible>
+              You can't place an order with this pincode. Please enter a valid Bhopal pincode.
+            </Alert>
+          )}
+          <div className="d-grid gap-2 mt-3">
+            <button
+              className="btn btn-primary btn-lg"
+              onClick={handleProceedToCheckout}
+            >
+              Proceed to Checkout
+            </button>
+          </div>
 
-    <div className="d-grid gap-2 mt-3">
-      <button
-        className="btn btn-primary btn-lg"
-        onClick={() => setShowCheckout(true)}
-      >
-        Proceed to Checkout
-      </button>
-    </div>
+  
   </div>
 </div>
 
@@ -214,147 +259,3 @@ return (
 }
 
 export default CartBody;
-
-
-// <div className="col-md-4">
-//         <div className="card p-4">
-//             <h2 className="mb-4">Enter Your Details</h2>
-//             <Form.Group controlId="formName">
-//               <Form.Label>Name</Form.Label>
-//               <Form.Control
-//                 type="text"
-//                 placeholder="Enter your name"
-//                 value={name}
-//                 onChange={(e) => setName(e.target.value)}
-//                 required
-//               />
-//             </Form.Group>
-
-//             <Form.Group controlId="formEmail">
-//               <Form.Label>Mobile Number</Form.Label>
-//               <Form.Control
-//                 type="number"
-//                 placeholder="Enter your contact number"
-//                 value={mobileNumber}
-//                 onChange={(e) => setMobileNumber(e.target.value)}
-//                 required
-//               />
-//             </Form.Group>
-
-//             <Form.Group controlId="formAddress">
-//               <Form.Label>Address</Form.Label>
-//               <Form.Control
-//                 as="textarea"
-//                 placeholder="Enter your address"
-//                 value={address}
-//                 onChange={(e) => setAddress(e.target.value)}
-//                 required
-//               />
-//             </Form.Group>
-
-//             <Form.Group controlId="storeLocation">
-//               <Form.Label>Select Store : </Form.Label>
-              
-//             <AreaSelection />
-//             </Form.Group>
-//             {/* <div className="mb-3">
-//                 <input type="text" className="form-control" placeholder="Full Name"  required/>
-//             </div>
-//             <div className="mb-3">
-//                 <input type="text" className="form-control" placeholder="Mobile Number" required/>
-//             </div>
-//             <div className="mb-3">
-//                 <textarea className="form-control" placeholder="Address" required></textarea>
-//             </div> */}
-//             <button className="btn btn-primary" onClick={() => setShowCheckout(true)}>Proceed to Checkout</button>
-//         </div>
-//     </div>
-
-// thhis line is printed in cartapp place 
-    // {/* <div>
-      // <h1>Cart</h1>
-      // {cartItems.length === 0 ? (
-        // <p>Your cart is empty.</p>
-    //   ) : (
-    //     <div>
-        //   <table className="table">
-        //     <thead>
-        //       <tr>
-        //         <th>Product</th>
-        //         <th>Quantity</th>
-        //         <th>Price</th>
-        //         <th>Subtotal</th>
-        //         <th>Action</th>
-        //       </tr>
-        //     </thead>
-        //     <tbody>
-        //       {cartItems.map((item,index) => (
-        //         <tr key={`${item.item._id}-${index}`}>
-        //           <td>{item.item.name}</td>
-        //           <td>{item.item.quantity}</td>
-        //           <td>{item.item.price}</td>
-        //           <td>{item.quantity * item.item.price}</td>
-        //           <td>
-        //             <button onClick={() => removeItemFromCart(item.item._id)}>Remove</button>
-        //           </td>
-        //         </tr>
-        //       ))}
-        //     </tbody>
-        //   </table>
-    //       <p>Total: {calculateTotalValue()}</p>
-        //   <button className="btn btn-primary" onClick={() => setShowCheckout(true)}>
-        //   Buy Now
-        // </button>
-         
-    //     </div>
-    //   )}
-    // </div> 
-
-
-
-//     <section class="addline">
-//     <div class="container" id="checkout_content">
-//         <div class="address">
-//            <h5 id="total_items">Total item - 1</h5>
-//            <p>address:</p>
-//            <h3 id="delivery_address">Home: 98, Prestige Avenue, Near School Vidisha - 464001</h3>
-//            <button onclick="navigateToDashboard();">Change</button><br/>
-//            {/* <!-- <h3>The product will be delivered by </h3> -->
-//            <!-- <p>11-Nov-2022</p> --> */}
-
-//         </div>
-//         <div class="bill">
-//             <h6 class="el">BILL DETAILS</h6>
-//             <div class="left-right">
-//                 <div class="left">
-//                     <p>subtotal</p>
-//                     <p>Delivery Charge</p>
-//                     <p class="all">Discount</p>
-                   
-//                     <h6>total</h6>
-//                 </div>
-
-//                 <div class="right">
-//                     <p id="subtotal">---</p>
-//                     <p id="delivery_charge">40.00</p>
-//                     <p class="all" id="discount">0.00</p>
-//                     <h6 id="total">228.00</h6>
-//                 </div>
-//             </div>
-//         </div>
-
-//         <div class="button-bill-wrap">
-//             <div class="first">
-//                 Total : 220Rs
-//             </div>
-//             <div class="first">
-//                 {/* <a href="<?php echo $siteUrl; ?>ordersummary">Proceed To Checkout</a> */}
-//                 <button className="button" onClick={() => setShowCheckout(true)}>
-//           Buy Now
-//         </button>
-//             </div>
-//         </div>
-       
-
-//     </div>
-// </section>

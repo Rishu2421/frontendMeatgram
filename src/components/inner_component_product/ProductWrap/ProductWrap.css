@@ -16,3 +16,23 @@
 
   }
   
+  .quantity-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .quantity-radio-group label {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .quantity-radio-group input[type="radio"] {
+    margin-right: 5px;
+  }
+  

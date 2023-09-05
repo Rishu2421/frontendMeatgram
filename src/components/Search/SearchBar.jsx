@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Search.css";
 import backendUrl from "../../config";
-const SearchBar = ({ toggleMenu }) => {
+const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const searchInputRef = useRef();
@@ -49,7 +49,7 @@ const SearchBar = ({ toggleMenu }) => {
           setSearchQuery("");
           setSuggestions([]);
           // Close the toggle menu using the function passed from the parent component
-          toggleMenu();
+     
           const searchUrl = `${window.location.origin}/products?ids=${productId}`;
 
           // Perform a hard search by changing the window location
@@ -123,13 +123,13 @@ const SearchBar = ({ toggleMenu }) => {
       <input
         type="text"
         placeholder="Search.."
-        className="form-control"
+        className="form-control search-form-control"
         name="search"
         value={searchQuery}
         onChange={handleInputChange}
       />
-      <button type="submit" className="search-button">
-        <i className="fa fa-search"></i>
+      <button type="submit" className="search-button background-color-danger">
+        <i className="fa fa-search"></i>Search
       </button>
     </div>
   
@@ -165,6 +165,12 @@ const SearchBar = ({ toggleMenu }) => {
 };
 
 export default SearchBar;
+
+
+
+
+
+
 
 
 // import React, { useState, useEffect, useRef } from 'react';

@@ -17,6 +17,9 @@ import Cookies from 'js-cookie';
 import SearchBar from "../Search/SearchBar";
 import MobileDownload from "../MobileDownload/MobileDownload";
 import CategoryApp from "../inner_components_category/CategoryApp";
+import FAQPage from "../QuickLinks/FAQs/FAQPage";
+import Terms from "../QuickLinks/Terms/Terms";
+import PrivacyPolicy from "../QuickLinks/PrivacyPolicy/PrivacyPolicy";
 function NavBar() {
   const [categoryName, setCategoryName] = useState('');
   
@@ -89,6 +92,9 @@ const handleToggleClick = () => {
           <Route path="/user/myorder" element={<MyOrderPage isAdmin={false} userId={userId} />} />
           <Route path="/order/:orderId" element={<OrderStatusUpdate />}/>
           <Route path="/login" element={<LoginModal />} /> 
+          <Route path="/FAQs" element={<FAQPage />} /> 
+          <Route path="/terms" element={<Terms />} /> 
+          <Route path="/privacyPolicy" element={<PrivacyPolicy />} /> 
 
         </Routes>
       </div>

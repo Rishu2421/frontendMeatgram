@@ -37,9 +37,10 @@ function Footer() {
       
         <h1>QUICK LINKS</h1>
         
-        <p>Privacy Policy</p>
-        <p>Terms & Conditions</p>
-        <p>FAQ'S</p>
+        
+        <a href="/privacyPolicy" className="text-decoration-none"><p>Privacy Policy</p></a>
+        <a href="/terms" className="text-decoration-none"><p>Terms & Conditions</p></a>
+        <a href="/FAQs" className="text-decoration-none"><p>FAQ'S</p></a>
         <div class="media-icons">
             <a href="https://www.facebook.com/chersmeatgram"><i class="fab fa-facebook-f"></i></a>
             <a href="https://www.instagram.com/chersmeatgram/"><i class="fab fa-instagram"></i></a>
