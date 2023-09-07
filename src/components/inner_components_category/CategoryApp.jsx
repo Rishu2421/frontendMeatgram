@@ -100,7 +100,7 @@ function capitalizeFirstLetter(word) {
         ))}
       </div>
         <div
-          className="menu row bestsellers-container"
+          className="menu bestsellers-container"
           id={`scroll-${subcategory}`}
           key={subcategory}
         >

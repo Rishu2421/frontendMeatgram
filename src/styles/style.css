@@ -1575,14 +1575,15 @@ img{
 
 
   .about .about_main .image img{
-    width: 90vw;
+    width:81vw;
+    height:48vh;
     margin-left: 0%;
     
   }
 
 
   .about .about_btn{
-    left: 42%;
+    left: 30%;
   }
 
 }
@@ -1616,8 +1617,9 @@ img{
   
   
     .about .about_main .image img{
-      width: 350px;
-      height: auto;
+      width: 81vw;
+      height:48vh;
+      /* height: auto; */
       margin-left: 0%;
     }
   
@@ -2378,7 +2380,7 @@ img{
 
 
 .scroll_button {
-  height: 30px;
+  height: auto;
   gap: 10px;
 }
 

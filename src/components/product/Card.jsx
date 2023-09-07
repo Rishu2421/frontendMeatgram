@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import AddToCartButton from './AddToCartButton/AddToCartButton';
 import backendUrl from '../../config';
 
-function Card({ product }) {
+function Card({ product , notShowDescription}) {
+  console.log(product);
   const { _id, name, image, quantityAndMrp, description } = product;
   const defaultQuantity = quantityAndMrp?.[0] || {}; // Default to the first detail
 
@@ -12,15 +13,35 @@ function Card({ product }) {
     setSelectedDetail(newDetail);
   };
 
+  // Function to truncate the description to the first 10 words
+  const truncateDescription = (description, wordCount) => {
+    const words = description.split(' ');
+    if (words.length <= wordCount) {
+      return description;
+    }
+    return words.slice(0, wordCount).join(' ') + '...';
+  };
+
+  const truncatedDescription = truncateDescription(description);
+
   return (
     <div className="food-items">
       <Link to={`/products?ids=${_id}`}> {/* Wrap the image with a Link */}
-        <img src={`${backendUrl}${image}`} alt={name} />
+        {/* <img src={`${backendUrl}${image}`} alt={name} /> */}
+        <div 
+      style={{
+        backgroundImage: `url(${backendUrl}${image})`,
+    backgroundSize: "cover",
+    width: "100%",
+    paddingTop: "100%",
+    borderRadius:"10px 10px 0 0"
+      }}
+      ></div>
       </Link>
       <div className="details">
         <div className="title-description">
           <h5>{name}</h5>
-          <p className='d-inline'>{description}</p>
+          {notShowDescription&& <p className='d-inline'>{truncatedDescription}</p> }
         </div>
         <form className="quantity-form">
           {quantityAndMrp &&
@@ -35,13 +56,9 @@ function Card({ product }) {
                   onChange={() => handleQuantityChange(detail)}
                 />
                 <label htmlFor={`quantity-${index}-${_id}`}>
-                 
-  {parseFloat(detail.quantity) > 0 && `${detail.quantity} Qty. `}
-  <span>Rs.{detail.mrp} 
-   {detail.numOfPieces > 0 && ` Pcs.${detail.numOfPieces}`}
- </span>
-</label>
-
+                  {parseFloat(detail.quantity) > 0 && `${detail.quantity} Qty. `}
+                  <span>Rs.{detail.mrp} {detail.numOfPieces > 0 && `Pcs.${detail.numOfPieces}`}</span>
+                </label>
               </div>
             ))}
         </form>

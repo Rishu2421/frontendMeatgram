@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import './CategoryWrap.css'
+import './CategoryWrap.css';
 import backendUrl from "../../../config";
-import { data } from "jquery";
 
 function CategoryWrap({ onCategoryChoice }) {
   const [categories, setCategories] = useState([]);
-
+  const [showAllCategories, setShowAllCategories] = useState(false);
+ 
   useEffect(() => {
     // Fetch categories from backend API
     fetch(`${backendUrl}/api/categories`)
@@ -16,20 +16,30 @@ function CategoryWrap({ onCategoryChoice }) {
   }, []);
 
   const navigate = useNavigate();
-  const handleCategoryClick = (categoryName,subcategories) => {
-    onCategoryChoice(categoryName,subcategories);
+  const handleCategoryClick = (categoryName, subcategories) => {
+    onCategoryChoice(categoryName, subcategories);
     navigate(`/category/${categoryName}`);
   };
 
+  const toggleShowAllCategories = () => {
+    setShowAllCategories(!showAllCategories);
+  };
+
+  const maxVisibleCategories = showAllCategories ? categories.length : 4;
+  const visibleCategories = categories && categories.length > 0 ? categories.slice(0, maxVisibleCategories) : [];
+
   return (
-    <div className="category-container">
-      {categories.map(category => (
+    <div className="category-container mb-2">
+    {/* <div className="heading">
+      Category
+      </div> */}
+      {visibleCategories.map((category, index) => (
         <Link
           to={`/category/${category.name.toLowerCase()}`}
           key={category._id} // You should use a unique key for each item in the list
-          onClick={() => handleCategoryClick(category.name.toLowerCase(),category.subcategories)}
+          onClick={() => handleCategoryClick(category.name.toLowerCase(), category.subcategories)}
         >
-          <div className="circ">
+          <div className="circ my-auto">
             <div className="crcl">
               <img src={`${backendUrl}${category.imageUrl}`} alt="" className="crcl" />
             </div>
@@ -39,83 +49,16 @@ function CategoryWrap({ onCategoryChoice }) {
           </div>
         </Link>
       ))}
+      {categories.length > 4 && (
+        <div className={`circ ${showAllCategories ? "view-less" : "view-all"}`} onClick={toggleShowAllCategories}>
+         <div className="crcl">
+          <img style={{width:"4rem" ,height:"4rem"}} src={showAllCategories?"/assets/less.jpg":"/assets/more.jpg"} alt={showAllCategories ? "View Less Categories" : "View More Categories"} />
+          </div>
+         
+        </div>
+      )}
     </div>
   );
 }
 
 export default CategoryWrap;
-
-
-// <section className="category-wrap">
-// <div className="container">
-//   <div className="title">
-//     <h2>Categories</h2>
-//   </div>
-//   <div className="category-info">
-//   {categories.map(category => (
-//   <div className="category" key={category._id}>
-//     <div className="image">
-//       {/* Remember to look when deployed */}
-//       <img
-//         src={`${backendUrl}${category.imageUrl}#`}
-//         style={{ width: "8rem", height: "8rem" }}
-//         alt={category.name}
-//       />
-//     </div>
-//     <div
-//       className="index-category-text cursor-pointer"
-//       onClick={() => handleCategoryClick(category.name)}
-//     >
-//       {category.name}
-//     </div>
-  
-//   </div>
-// ))}
-//   </div>
-// </div>
-// </section>
-
-// import React from "react";
-
-// function Category() {
-//   return (
-//     <section className="category-wrap">
-//       <div className="container">
-//         <div className="title">
-//           <h2>Categories</h2>
-//         </div>
-//         <div className="category-info">
-//           <div className="category">
-//             <div className="image">
-//               <img src="images/Group 8.png" alt="Category 1" />
-//             </div>
-//             <div className="text">
-//               <h3>chicken</h3>
-//               <h5>
-//                 <button>
-//                   <i className="fa fa-inr" aria-hidden="true"></i>280
-//                   </button>
-//               </h5>
-//             </div>
-//           </div>
-//           <div className="category">
-//             <div className="image">
-//               <img src="images/Group 8.png" alt="Category 2" />
-//             </div>
-//             <div className="text">
-//               <h3>chicken</h3>
-//               <h5>
-//               <button>
-//                   <i className="fa fa-inr" aria-hidden="true"></i>280
-//                   </button>
-//               </h5>
-//             </div>
-//           </div>
-//           {/* Add more category items here */}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-// export default Category;

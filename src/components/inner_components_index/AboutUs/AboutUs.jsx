@@ -3,9 +3,9 @@ import React from "react";
 function AboutUs() {
   return (
     <div class="about" id="Aboutus">
-      <div class="about_main">
+      <div class="about_main d-flex align-items-center justify-content-center">
         <div class="image">
-          <img src="./assets/chicken.jpeg" />
+          <img src="/assets/chicken.jpeg" />
         </div>
 
         <div class="about_text">

@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import backendUrl from "../../config";
-import Items from "../product/Items";
-import Card from "../product/Card";
+import CarouselCard from "./CarouselCard/CarouselCard";
+import { Carousel } from "react-bootstrap";
+import "./TopSelling.css";
+import { useMediaQuery } from "react-responsive";
+import LoadingOverlay from '../Loading/LoadingOverlay';
 
 function TopSellingProducts() {
+  const isMobile = useMediaQuery({ maxWidth: 991 }); // Define mobile breakpoint
+
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -15,19 +20,52 @@ function TopSellingProducts() {
         setProducts(data);
       })
       .catch((error) => {
-        console.error('Error fetching top-selling products:', error);
+        console.error("Error fetching top-selling products:", error);
       });
   }, []);
 
+  
   return (
     <div className="menu bestsellers-container" id={`scroll1`}>
       <div className="heading">
         <h1>Top Selling Marinates</h1>
         <h3>&mdash; Menu &mdash;</h3>
       </div>
-      {products.map((product, index) => (
-        <Card key={index} product={product} />
-      ))}
+
+      {isMobile ? ( // Render Carousel only on mobile screens
+        <div className="carousel-container">
+          <Carousel
+            indicators={false}
+            prevIcon={<span className="carousel-control-prev-icon" aria-hidden="true" />}
+            nextIcon={<span className="carousel-control-next-icon" aria-hidden="true" />}
+            nextLabel=""
+            prevLabel=""
+          >
+            {products.map((product, index) => (
+              <Carousel.Item key={index}>
+                <div className="d-flex justify-content-center">
+                  <div className="col-12">
+                    <CarouselCard product={product} notShowDescription={false} />
+                  </div>
+                </div>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </div>
+      ) : (
+        <>
+        {/* // <div className="card-container"> */}
+          {/* Render all cards on desktop screens */}
+          {/* <div className="row"> */}
+            {products.map((product, index) => (
+              // <div className="col-md-4" key={index}>
+                <CarouselCard product={product} notShowDescription={false} />
+              // </div>
+            ))}
+          {/* </div> */}
+        {/* </div> */}
+     </>
+      )}
     </div>
   );
 }
@@ -35,34 +73,55 @@ function TopSellingProducts() {
 export default TopSellingProducts;
 
 
+// return (
+//   <div className="menu bestsellers-container" id={`scroll1`}>
+//     <div className="heading">
+//       <h1>Top Selling Marinates</h1>
+//       <h3>&mdash; Menu &mdash;</h3>
+//     </div>
 
-// <section className="category-wrap selling-product">
-//       <div className="container">
-//         <div className="title">
-//           <h2>Top selling products</h2>
-//         </div>
-//         <div className="row">
-//           {products.map((product, index) => (
-//             <div className="col-md-3" key={index}>
-//   <div
-//     className="image"
-//     style={{
-//       backgroundImage: `url(${backendUrl}${product.image})`,
-//       backgroundSize: 'cover',
-//       backgroundPosition: 'center',
-//       borderRadius: '20px',
-//       height:'5rem',
-//       // width: '5rem', // Set width to fill the column
-//       paddingTop: '100%',
-//     }}
-//   ></div>
-//   <div className="text mt-auto">
-//     <h3>{product.name}</h3>
+//     {products.length > 0 ? (
+//       <Carousel
+//         indicators={false}
+//         prevIcon={<span className="carousel-control-prev-icon" aria-hidden="true" />}
+//         nextIcon={<span className="carousel-control-next-icon" aria-hidden="true" />}
+//         nextLabel=""
+//         prevLabel=""
+//         // Customize styles for mobile screens
+//         style={isMobile ? { margin: "0 -15px", overflow: "hidden" } : {}}
+//       >
+//         {products.map((product, index) => (
+//           <Carousel.Item key={index}>
+//             <div className="d-flex justify-content-center">
+//               {/* Conditionally set the number of cards based on screen size */}
+//               {isMobile ? (
+//                 <div className="col-12">
+//                   <CarouselCard product={product} notShowDescription={false} />
+//                 </div>
+//               ) : (
+//                 <>
+//                   <div className="col-md-4">
+//                     <CarouselCard product={product} notShowDescription={false} />
+//                   </div>
+//                   {products[index + 1] && (
+//                     <div className="col-md-4">
+//                       <CarouselCard product={products[index + 1]} notShowDescription={false} />
+//                     </div>
+//                   )}
+//                   {products[index + 2] && (
+//                     <div className="col-md-4">
+//                       <CarouselCard product={products[index + 2]} notShowDescription={false} />
+//                     </div>
+//                   )}
+//                 </>
+//               )}
+//             </div>
+//           </Carousel.Item>
+//         ))}
+//       </Carousel>
+//     ) : (
+//       <LoadingOverlay /> // Display a loading message while fetching data
+//     )}
 //   </div>
-// </div>
-
-
-//           ))}
-//         </div>
-//       </div>
-//     </section>
+// );
+// }

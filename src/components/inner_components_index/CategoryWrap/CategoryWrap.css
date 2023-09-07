@@ -1,3 +1,37 @@
+@media (max-width: 767px) {
+    .category-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .circ {
+      width: calc(33.33%); /* 3 categories per row with 20px gap */
+    }
+  }
+  .category-container {
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center; /* Align items at the center horizontally */
+  }
+  
+  .circ {
+    margin: 10px;
+    text-align: center;
+  }
+  
+  .view-more-button {
+    text-align: center;
+  }
+  
+  .view-more-button img,
+  .view-more-button span {
+    display: block; /* Display image and text as block elements */
+    margin: 0; /* Center the image and text horizontally */
+  }
+  
 .category-wrap {
     padding: 50px 0px;
 }
@@ -38,3 +72,24 @@
     cursor: pointer;
     text-align: center;
 }
+
+/* Add this to your CSS */
+.hidden-category {
+  display: none;
+}
+
+/* Add this to your CSS */
+.category-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Display three categories per row */
+    gap: 20px; /* Adjust the gap between categories */
+  }
+  
+  .show-more-button {
+    grid-column: span 3; /* Make the "View More" button span three columns */
+    text-align: center;
+    cursor: pointer;
+    color: blue;
+    font-weight: bold;
+  }
+  
