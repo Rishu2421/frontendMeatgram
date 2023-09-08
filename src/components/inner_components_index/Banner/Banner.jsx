@@ -43,7 +43,7 @@ function Banner() {
               className="image homepage-slider-image bg-yellow"
               style={{
                 backgroundImage: `url(${backendUrl}${image.image})`,
-                backgroundSize: isMobile ? "cover" : "cover", // Adjust the backgroundSize property
+                backgroundSize: isMobile ? "contain" : "cover", // Adjust the backgroundSize property
                 backgroundPosition: "center center",
                 backgroundRepeat: "no-repeat",
                 width: isMobile ? "100%" : "100%", // Adjust the width for desktop

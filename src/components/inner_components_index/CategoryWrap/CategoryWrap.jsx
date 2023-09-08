@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './CategoryWrap.css';
+import { useMediaQuery } from "react-responsive";
 import backendUrl from "../../../config";
 
 function CategoryWrap({ onCategoryChoice }) {
   const [categories, setCategories] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
-
+  const isWideScreen = useMediaQuery({ minWidth: 576 });
   useEffect(() => {
     // Fetch categories from backend API
     fetch(`${backendUrl}/api/categories`)
@@ -25,16 +26,16 @@ function CategoryWrap({ onCategoryChoice }) {
     setShowAllCategories(!showAllCategories);
   };
 
-  const maxVisibleCategories = showAllCategories ? categories.length : 4;
+  const maxVisibleCategories = showAllCategories ? categories.length : 5;
   const visibleCategories = categories && categories.length > 0 ? categories.slice(0, maxVisibleCategories) : [];
 
   return (
-    <div className="category-container mb-2">
+    <div className={`category-container mb-2 ${isWideScreen ? "wide-screen" : ""}`}>
       <div className="row">
-        <div className="col-md-12 order-1 order-md-1">
+      <div className={`col-md-12 order-1 order-md-1 ${isWideScreen ? "text-center" : ""}`}>
           <h3 style={{ color: "#BA0001" }}>Products</h3>
         </div>
-        {/* <div className="col-md-12 order-2 order-md-2"> */}
+        <div className={`col-md-12 order-2 order-md-2 ${isWideScreen ? "d-flex justify-content-between flex-wrap" : ""}`}>
           <div className="row ">
             {visibleCategories.map((category, index) => (
               <div className="col-4 col-md-1 mb-2" key={category._id}>
@@ -53,8 +54,8 @@ function CategoryWrap({ onCategoryChoice }) {
                 </Link>
               </div>
             ))}
-            {categories.length > 4 && (
-              <div className="col-4 my-auto">
+            {categories.length > 5 && (
+              <div className="col-4 col-md-1 mb-2">
                 <div className={`circ ${showAllCategories ? "view-less" : "view-all"}`} onClick={toggleShowAllCategories}>
                   <div className="crcl">
                     <img
@@ -70,7 +71,7 @@ function CategoryWrap({ onCategoryChoice }) {
               </div>
             )}
           </div>
-        {/* </div> */}
+        </div>
       </div>
     </div>
   );

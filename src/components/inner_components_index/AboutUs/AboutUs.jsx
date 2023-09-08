@@ -5,7 +5,7 @@ function AboutUs() {
     <div class="about" id="Aboutus">
       <div class="about_main d-flex align-items-center justify-content-center">
         <div class="image">
-          <img src="/assets/chicken.jpeg" />
+          <img style={{borderRadius:"10px"}} src="/assets/Home (2).png" />
         </div>
 
         <div class="about_text">

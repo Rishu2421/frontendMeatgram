@@ -93,3 +93,18 @@
     font-weight: bold;
   }
   
+
+
+  /* Add this to your CategoryWrap.css file */
+.category-container.wide-screen {
+  /* Your styles for wide screens */
+}
+
+.category-container.wide-screen .text-center {
+  /* Center the text for wide screens */
+}
+
+.category-container.wide-screen .d-flex.justify-content-between.flex-wrap .row {
+  /* Align items with space-between for wide screens */
+  justify-content: space-evenly;
+}

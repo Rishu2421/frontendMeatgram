@@ -82,14 +82,14 @@ function capitalizeFirstLetter(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
   return (
-    <div>
+    <div className="container">
       <CategoryWrap onCategoryChoice={handleCategoryChoice} />
 
       
 
       {subCategories.map((subcategory) => (
-        <>
-        <div className="scroll_button">
+        <div className="mt-4">
+        <div className="scroll_button mt-2">
         {subCategories.map((subcategory) => (
           <button
             key={subcategory}
@@ -112,7 +112,7 @@ function capitalizeFirstLetter(word) {
             <Card key={productIndex} product={product} />
           ))}
         </div>
-        </>
+        </div>
       ))}
     </div>
   );
