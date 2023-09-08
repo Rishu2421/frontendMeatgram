@@ -29,12 +29,13 @@ function CarouselCard({ product , notShowDescription}) {
       <Link to={`/products?ids=${_id}`}> {/* Wrap the image with a Link */}
       
       <div 
-      style={{
+     style={{
         backgroundImage: `url(${backendUrl}${image})`,
-    backgroundSize: "cover",
-    width: "100%",
-    paddingTop: "100%",
-    borderRadius:"10px 10px 0 0"
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center', // Center the background image
+        paddingTop: '100%',
+        borderRadius: '10px 10px 0 0',
       }}
       ></div>
 

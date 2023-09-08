@@ -17,9 +17,9 @@ function Body({ categoryChoice }){
   };
     return (
         <div>
-        
+      <Banner />   
       <CategoryWrap onCategoryChoice={handleCategoryChoice}/>
-      <Banner />
+     
       <TopSellingProducts />
       {/* <Meetgraminfo /> */}
       <BonelessCuts />  

@@ -1,10 +1,11 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Testimonial from './Testimonial';
+// import Testimonial from './Testimonial';
+import './Testimonial.css'
 function Testimonials() {
   return (
-    <section className="section__container">
+    <section className="section__container testimonial-container">
       <h2>Testimonials</h2>
       <h1>What our customers say</h1>
       <Carousel>

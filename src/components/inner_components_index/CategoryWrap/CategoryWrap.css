@@ -80,7 +80,7 @@
 
 /* Add this to your CSS */
 .category-container {
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(3, 1fr); /* Display three categories per row */
     gap: 20px; /* Adjust the gap between categories */
   }
