@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import RedBackgroundWrap from "./inner_components_category/RedBackgroundWrap";
 import ProductWrap from "./inner_component_product/ProductWrap/ProductWrap";
-import Sourcing from "./inner_component_product/Sourcing/Sourcing";
-import TheWay from "./inner_component_product/TheWay/TheWay";
 import Cookies from 'js-cookie';
-import Items from './product/Items'
 import "../styles/style.css";
 import backendUrl from "../config";
 

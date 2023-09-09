@@ -23,7 +23,7 @@ const OrderContainer = ({ orders, isAdmin }) => {
   return (
     <div className="card mt-4">
       <div className="card-body">
-        {orders.map((order, index) => (
+        {orders && orders.map((order, index) => (
           <div key={index} className="mb-4">
             <OrderItem
               key={order._id}
@@ -32,7 +32,7 @@ const OrderContainer = ({ orders, isAdmin }) => {
               totalAmount={order.amount}
               mobileNumber={order.mobileNumber}
               address={order.address}
-              products={order.items.map((item) => ({
+              products={order.items && order.items.map((item) => ({
                 imageUrl: `${backendUrl}${item.item.image}`,
                 productName: item.item.name,
                 price: `Rs.${item.item.quantityAndMrp[0].mrp}`,

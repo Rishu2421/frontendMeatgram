@@ -5,7 +5,6 @@ import TopSellingProducts from "./inner_components_index/TopSellingProducts";
 import BonelessCuts from "./inner_components_index/BonelessCuts";
 import AboutUs from "./inner_components_index/AboutUs/AboutUs";
 import Meetgram from "./inner_components_index/Meetgram";
-import Meetgraminfo from "./inner_components_index/Meetgraminfo";
 import Testimonials from "./inner_components_index/Testimonials/Testimonials";
 import { useNavigate } from "react-router-dom";
 

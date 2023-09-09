@@ -2,7 +2,6 @@ import React, { useState,useEffect } from "react";
 import { Route, Routes,useNavigate,useLocation } from "react-router-dom";
 import './NavBar.css'
 import Body from "../Body";
-import Category from "../Category";
 import Cart from "../Cart";
 import Product from "../Product";
 import Navigation from "../Navigation/Navigation";
@@ -81,10 +80,6 @@ const handleToggleClick = () => {
 
         <Routes >
           <Route exact path="/" element={<Body categoryChoice={handleCategoryChoice} />} />
-          <Route path="/category" element={<Category categoryChoice={handleCategoryChoice} />} />
-         
-          {/* <Route path="/category/:categoryName" element={ <Items showAll={true} category={categoryName} subCategoryies={subCategory} />} /> */}
-
           <Route path="/category/:categoryName" element={<CategoryApp categoryChoice={handleCategoryChoice} category={categoryName} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/products" element={<Product />} />
