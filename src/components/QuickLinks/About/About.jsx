@@ -1,12 +1,16 @@
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 import "./About.css"; // You can import your custom CSS for styling if needed
 
 function About() {
+  const isMobile = useMediaQuery({ maxWidth: 768 }); // Define mobile view based on screen width
+  
   return (
     <div className="about-main-container">
       <div className="responsive-container-block Container">
-        <img className="mainImg" src="/assets/chicken.jpeg" alt="Meat Image" />
-
+      {isMobile && (
+          <img className="mainImg" src="/assets/MEAT GRAM (1).jpg" alt="Meat Image" />
+        )}
         <div className="text-container mx-auto my-auto">
           <h1 className="text-blk headingText">About Us</h1>
 
@@ -103,7 +107,9 @@ function About() {
             </strong>
           </p>
 
-          <button className="explore">Order Now</button>
+
+
+          <a href="/all-products" className="explore text-decoration-none">Order Now</a>
         </div>
       </div>
 

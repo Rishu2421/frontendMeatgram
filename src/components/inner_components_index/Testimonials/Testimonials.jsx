@@ -1,6 +1,7 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import './Testimonial.css'
 function Testimonials() {
   return (
@@ -15,12 +16,10 @@ function Testimonials() {
             </span>
             <h4>Our Clients Review</h4>
             <p>
-              Your complete system from information, medium of communication,
-              acceptance of order, confirmation, and delivery is extremely
-              efficient, responsive, and user friendly.
+              Excellent service and very humble and gentle executive staff mutton quality is good and fresh. Once the order was not good as expected I informed them the issue. They immediately re-delivered same order  complimentary. I like this This thing.
             </p>
             <img src="/assets/user.png" alt="user" />
-            <h5>Vinayak</h5>
+            <h5>Asif Baig</h5>
           </div>
         </Carousel.Item>
 
@@ -31,12 +30,11 @@ function Testimonials() {
             </span>
             <h4>Our Clients Review</h4>
             <p>
-              Mutton quality is very good ....Good you all have started selling
-              fresh hygienic non-veg items ...This was very much needed here in
-              Bhopal .... Thank you! Regards,
+            The quality of all meats which we have purchased, especially freshwater fishes have been great. The delivery experience has been good as well with respect to time to delivery.
+
             </p>
             <img src="/assets/user.png" alt="user" />
-            <h5>Mamta Sinha</h5>
+            <h5>Gulshan Enterprises</h5>
           </div>
         </Carousel.Item>
 
@@ -47,12 +45,12 @@ function Testimonials() {
             </span>
             <h4>Our Clients Review</h4>
             <p>
-              Your complete system from information, medium of communication,
-              acceptance of order, confirmation, and delivery is extremely
-              efficient, responsive, and user friendly.
+             Excellent service and good quality products.
+Really happy with the quality and taste.
+Very fresh item delivered on time 😊 …
             </p>
             <img src="/assets/user.png" alt="user" />
-            <h5>Vinayak</h5>
+            <h5>Deepa Mirchandani</h5>
           </div>
         </Carousel.Item>
       </Carousel>

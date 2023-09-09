@@ -29,7 +29,7 @@ function BonelessCuts() {
     <div className="menu bestsellers-container" id={`scroll1`}>
       <div className="heading">
         <h1>Boneless Cuts</h1>
-        <h3>&mdash; Menu &mdash;</h3>
+        <h3>&mdash; Raw Menu &mdash;</h3>
       </div>
       {isMobile ? ( // Render Carousel only on mobile screens
         <div className="carousel-container">

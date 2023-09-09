@@ -5,7 +5,7 @@ function AboutUs() {
     <div class="about" id="Aboutus">
       <div class="about_main d-flex align-items-center justify-content-center">
       <div class="video">
-          <video style={{borderRadius:"20px"}} controls autoplay muted src="/assets/about_video1.mp4"></video>
+          <video controls autoPlay loop muted playsinline style={{borderRadius:"20px"}} src="/assets/about_video1.mp4"></video>
         </div>
         <div class="about_text">
           <h1><span>About</span>Us</h1>
