@@ -28,7 +28,7 @@ function TopSellingProducts() {
   return (
     <div className="menu bestsellers-container" id={`scroll1`}>
       <div className="heading">
-        <h1>Top Selling Marinates</h1>
+        <h1>Top Selling Marinades</h1>
         <h3>&mdash; Menu &mdash;</h3>
       </div>
 
