@@ -17,12 +17,12 @@ function FAQPage() {
           </div>
         </details>
 
-        <details>
+        {/* <details>
           <summary>What are your hours of operation?</summary>
           <div className="faq__content">
             <p>ANSWER: We are open from 9 AM to 9 PM, Monday to Saturday.</p>
           </div>
-        </details>
+        </details> */}
 
         <details>
           <summary>Do you deliver in Bhopal only?</summary>
