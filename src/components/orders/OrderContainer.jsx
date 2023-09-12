@@ -31,6 +31,7 @@ const OrderContainer = ({ orders, isAdmin }) => {
   orderNumber={order._id}
   totalAmount={order.amount}
   mobileNumber={order.mobileNumber}
+  userName={order.name}
   address={order.address}
   products={
     order.items
@@ -40,8 +41,12 @@ const OrderContainer = ({ orders, isAdmin }) => {
             return {
               imageUrl: `${backendUrl}${item.item.image}`,
               productName: item.item.name,
-              price: `Rs.${item.item.quantityAndMrp[0].mrp}`,
+              price: `Rs.${item.selectedQuantityAndMrp.mrp}`,
+              numOfPieces: `${item.selectedQuantityAndMrp.numOfPieces}`,
+              quantity: `${item.selectedQuantityAndMrp.quantity}`,
               status: order.status,
+              numOfItems:`${item.quantity}`,
+              subTotal:`${item.quantity*item.selectedQuantityAndMrp.mrp}`,
               productId: `${item.item._id}`,
             };
           } else {

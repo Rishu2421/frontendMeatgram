@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 import backendUrl from "../../config";
 import CheckoutPage from "../orders/CheckoutPage/CheckoutPage";
 import {  Form,Alert } from 'react-bootstrap';
-import AreaSelection from "../orders/AreaSelection/AreaSelection";
 
 function CartBody({selectedItemPrice}){
 
@@ -15,7 +14,6 @@ function CartBody({selectedItemPrice}){
     const [selectedCityStore, setSelectedCityStore] = useState("Areera Colony");
     const [pincode, setPincode] = useState('');
   const [isBhopalPincode, setIsBhopalPincode] = useState(false);
-  const [isButtonLocked, setIsButtonLocked] = useState(false);
   const [showPincodeAlert, setShowPincodeAlert] = useState(false);  
 
     useEffect(() => {
@@ -77,17 +75,14 @@ function CartBody({selectedItemPrice}){
 
   
 
-    const calculateTotalValue = () => {
-      // Calculate the total value if the cart is not empty
-     const fullAmount= cartItems.reduce((total, item) => total + item.quantity * item.selectedQuantityAndMrp.mrp, 0);
-      if (cartItems.length > 0) {
-        return fullAmount;
-      } else {
-        // Apply a 30% discount if the cart is empty
-        const discount = 0.3 * fullAmount; // 30% discount
-        return fullAmount - discount;
-      }
-    };
+      const calculateTotalValue = () => {
+        // Filter out items with undefined 'item' property
+        const validCartItems = cartItems.filter(item => item.item !== undefined);
+      
+        // Calculate the total value if the filtered cart is not empty
+        return validCartItems.reduce((total, item) => total + item.quantity * item.selectedQuantityAndMrp.mrp, 0);
+      };
+      
     
 
    const calculateTotalItem=()=>{

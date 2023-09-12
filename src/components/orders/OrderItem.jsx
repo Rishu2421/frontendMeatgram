@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OrderItem = ({ orderDate, orderNumber, totalAmount, products, address, mobileNumber }) => {
+const OrderItem = ({ orderDate, orderNumber, totalAmount, products, address, mobileNumber,userName }) => {
   // console.log(products)
   return (
     
@@ -14,6 +14,9 @@ const OrderItem = ({ orderDate, orderNumber, totalAmount, products, address, mob
             <div className="col-sm-12 col-md-6">
               <p><b>Order number:</b> {orderNumber}</p>
             </div>
+             <div className="col-sm-12 col-md-6">
+              <p><b>Name:</b> {userName}</p>
+            </div>
             <div className="col-sm-12 col-md-6">
               <p><b>Total amount paid:</b> {totalAmount}</p>
             </div>
@@ -24,14 +27,19 @@ const OrderItem = ({ orderDate, orderNumber, totalAmount, products, address, mob
               <p><b>Mobile:</b> {mobileNumber}</p>
             </div>
           </div>
-
-          <table className="table">
+<div className='table-responsive'>
+          <table className="table text-center table-striped table-bordered table-hover">
             <caption>Products</caption>
             <thead>
               <tr>
                 <th scope="col">Product</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
+                <th scope="col">NumofItem</th>
+                <th scope="col">SubTotal</th>
+                <th scope="col">Pieces</th>
+                <th scope="col">Quantity</th>
+               
                 <th scope="col">Status</th>
                 {/* <th scope="col">Info</th> */}
               </tr>
@@ -54,6 +62,12 @@ const OrderItem = ({ orderDate, orderNumber, totalAmount, products, address, mob
                   </td>
                   <td>{product.productName}</td>
                   <td>{product.price}</td>
+                  <td>{product.numOfItems}</td>
+                  <td>{product.subTotal}</td>
+                
+                  <td>{product.numOfPieces===0?'N/A':product.numOfPieces}</td>
+                  
+                  <td>{parseFloat(product.quantity)===0?'N/A':product.quantity}</td>
                   <td>{product.status}</td>
                 </tr>
               ))}
@@ -62,6 +76,7 @@ const OrderItem = ({ orderDate, orderNumber, totalAmount, products, address, mob
 
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>
