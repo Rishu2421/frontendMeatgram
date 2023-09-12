@@ -75,10 +75,7 @@ function CartBody({selectedItemPrice}){
         }
       };
 
-    //   const calculateTotalValue = () => {
-        
-    //     return cartItems.reduce((total, item) => total + item.quantity * item.selectedQuantityAndMrp.mrp, 0);
-    //  };
+  
 
     const calculateTotalValue = () => {
       // Calculate the total value if the cart is not empty
@@ -121,10 +118,12 @@ function CartBody({selectedItemPrice}){
         setShowCheckout(true);
       }
     };
+    const filteredCartItems = cartItems.filter((item) => item.item && item.item._id);
+
 return (
     <>
 {showCheckout ? (
-      <CheckoutPage name={name} mobileNumber={mobileNumber} address={address} amount={calculateTotalValue()} storeLocation={selectedCityStore} pincode={pincode} numberOfItem={calculateTotalItem()} products={cartItems}/>
+      <CheckoutPage name={name} mobileNumber={mobileNumber} address={address} amount={calculateTotalValue()} storeLocation={selectedCityStore} pincode={pincode} numberOfItem={calculateTotalItem()} products={filteredCartItems}/>
     ) : (
     <div>
      
@@ -155,11 +154,31 @@ return (
               </tr>
             </thead>
             <tbody>
-            {cartItems.map((item, index) => (
+              {cartItems
+  .filter((item) => item.item && item.item._id) // Filter out items with missing item.item
+  .map((item, index) => (
+    <tr key={`${item.item._id}-${index}`}>
+      <td>{item.item.name}</td>
+      <td>{item.quantity || 0}</td>
+      <td>{item.selectedQuantityAndMrp?.mrp || 0}</td>
+      <td>{(item.selectedQuantityAndMrp?.mrp || 0) * (item.quantity || 0)}</td>
+      <td>
+        <button
+          className="btn btn-danger btn-responsive"
+          onClick={() => removeItemFromCart(item.item._id)}
+        >
+          Remove
+        </button>
+      </td>
+    </tr>
+  ))
+}
+
+            {/* {cartItems.map((item, index) => (
+            
   <tr key={`${item.item && item.item._id}-${index}`}>
     <td>{item.item && item.item.name}</td>
-    {/* <td>{item.item && item.item.quantityAndMrp[0] && item.item.quantityAndMrp[0].quantity ? item.item.quantityAndMrp[0].quantity : "0"}</td> */}
-    <td>{item && item.quantity ? item.quantity : 0}</td>
+    <td>{item && item.item && item.quantity ? item.quantity : 0}</td>
     <td>{item.item && item.selectedQuantityAndMrp && item.selectedQuantityAndMrp.mrp ? parseFloat(item.selectedQuantityAndMrp.mrp) : 0}</td>
     <td>{item.item &&item.selectedQuantityAndMrp && item.selectedQuantityAndMrp.mrp && item.quantity ? parseFloat(item.selectedQuantityAndMrp.mrp) * item.quantity : 0}</td>
     <td>
@@ -171,7 +190,7 @@ return (
       </button>
     </td>
   </tr>
-))}
+))} */}
 
   <tr>
     <td colSpan="3"></td>

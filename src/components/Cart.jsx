@@ -11,7 +11,7 @@ function Cart() {
 
   const checkAuthentication = () => {
     const token = Cookies.get("token");
-    console.log(token);
+ 
     if (token) {
       setIsAuthenticated(true);
     } else {

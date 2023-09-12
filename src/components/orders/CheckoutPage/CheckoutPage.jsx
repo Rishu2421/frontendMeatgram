@@ -257,7 +257,7 @@ const CheckoutPage = ({name,mobileNumber,address, amount, products,numberOfItem,
                     
                       {discount > 0 && ( // Display the discount only if greater than 0
                         <>
-                          <p className="all" style={{marginTop:"2.1rem"}} id="discount">
+                          <p className="all" style={{marginTop:"1.2rem"}} id="discount">
                             30%
                           </p>
                         </>
